@@ -27,6 +27,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         carousel.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
         carousel.rootDataSource = self
         carousel.rootDelegate = self
+        
+        carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

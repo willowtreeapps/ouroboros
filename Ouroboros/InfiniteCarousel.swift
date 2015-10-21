@@ -10,6 +10,7 @@ import UIKit
 
 class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBInspectable var buffer = 3
+    
     var count = 0
     
     var rootDataSource: UICollectionViewDataSource!
