@@ -9,7 +9,7 @@
 import UIKit
 
 class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    @IBInspectable var buffer = 2
+    @IBInspectable var buffer = 3
     var count = 0
     
     var rootDataSource: UICollectionViewDataSource!
@@ -30,14 +30,14 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
 
         focusHeading = context.focusHeading
         if focusHeading == .Left && to!.item < buffer {
-            print("Going left, asking to go to \(to!.item); sending to \(buffer + count - 1)")
+            print("Going left, asking to go to \(to!.item); sending to \(buffer + count - 1); focusing on \(to!.item + count)")
             jumpFromIndex = jumpFromIndex ?? to!.item
             jumpToIndex = buffer + count - 1
             jumpToFocusIndex = to!.item + count
         }
         
         if focusHeading == .Right && to!.item >= buffer + count {
-            print("Going right, asking to go to \(to!.item); sending to \(buffer)")
+            print("Going right, asking to go to \(to!.item); sending to \(buffer); focusing on \(to!.item - count)")
             jumpFromIndex = jumpFromIndex ?? to!.item
             jumpToIndex = buffer
             jumpToFocusIndex = to!.item - count
@@ -122,11 +122,7 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         // TODO: screen frame - cell width plus margins / 2 ?
         let desiredOffset = CGFloat(jumpIndex) * 1000.0 - 460.0
         let currentOffset = scrollView.contentOffset.x
-        
-        print("Checking in scroll current: \(currentOffset) vs desired \(desiredOffset)")
-        print("Difference is \(desiredOffset - currentOffset)")
-        
-        
+
         if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
             (focusHeading == .Right && currentOffset >= desiredOffset) {
                 
