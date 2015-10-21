@@ -12,6 +12,7 @@
 		D9C24F261BD7D0BD000987D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9C24F241BD7D0BD000987D0 /* Main.storyboard */; };
 		D9C24F281BD7D0BD000987D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9C24F271BD7D0BD000987D0 /* Assets.xcassets */; };
 		D9C24F331BD7D0BD000987D0 /* OuroborosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C24F321BD7D0BD000987D0 /* OuroborosTests.swift */; };
+		D9C24F3E1BD7D1CC000987D0 /* InfiniteCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C24F3D1BD7D1CC000987D0 /* InfiniteCarousel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		D9C24F2E1BD7D0BD000987D0 /* OuroborosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OuroborosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C24F321BD7D0BD000987D0 /* OuroborosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTests.swift; sourceTree = "<group>"; };
 		D9C24F341BD7D0BD000987D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9C24F3D1BD7D1CC000987D0 /* InfiniteCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCarousel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				D9C24F201BD7D0BD000987D0 /* AppDelegate.swift */,
 				D9C24F221BD7D0BD000987D0 /* ViewController.swift */,
+				D9C24F3D1BD7D1CC000987D0 /* InfiniteCarousel.swift */,
 				D9C24F241BD7D0BD000987D0 /* Main.storyboard */,
 				D9C24F271BD7D0BD000987D0 /* Assets.xcassets */,
 				D9C24F291BD7D0BD000987D0 /* Info.plist */,
@@ -193,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C24F3E1BD7D1CC000987D0 /* InfiniteCarousel.swift in Sources */,
 				D9C24F231BD7D0BD000987D0 /* ViewController.swift in Sources */,
 				D9C24F211BD7D0BD000987D0 /* AppDelegate.swift in Sources */,
 			);
@@ -376,6 +380,7 @@
 				D9C24F391BD7D0BD000987D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9C24F3A1BD7D0BD000987D0 /* Build configuration list for PBXNativeTarget "OuroborosTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +389,7 @@
 				D9C24F3C1BD7D0BD000987D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
