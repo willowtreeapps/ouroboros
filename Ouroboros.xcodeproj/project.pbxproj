@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D9C24F211BD7D0BD000987D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C24F201BD7D0BD000987D0 /* AppDelegate.swift */; };
+		D9C24F231BD7D0BD000987D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C24F221BD7D0BD000987D0 /* ViewController.swift */; };
+		D9C24F261BD7D0BD000987D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9C24F241BD7D0BD000987D0 /* Main.storyboard */; };
+		D9C24F281BD7D0BD000987D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9C24F271BD7D0BD000987D0 /* Assets.xcassets */; };
+		D9C24F331BD7D0BD000987D0 /* OuroborosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C24F321BD7D0BD000987D0 /* OuroborosTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D9C24F2F1BD7D0BD000987D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C24F151BD7D0BD000987D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9C24F1C1BD7D0BD000987D0;
+			remoteInfo = Ouroboros;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D9C24F1D1BD7D0BD000987D0 /* Ouroboros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ouroboros.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9C24F201BD7D0BD000987D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D9C24F221BD7D0BD000987D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D9C24F251BD7D0BD000987D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D9C24F271BD7D0BD000987D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9C24F291BD7D0BD000987D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9C24F2E1BD7D0BD000987D0 /* OuroborosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OuroborosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9C24F321BD7D0BD000987D0 /* OuroborosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTests.swift; sourceTree = "<group>"; };
+		D9C24F341BD7D0BD000987D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9C24F1A1BD7D0BD000987D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9C24F2B1BD7D0BD000987D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D9C24F141BD7D0BD000987D0 = {
+			isa = PBXGroup;
+			children = (
+				D9C24F1F1BD7D0BD000987D0 /* Ouroboros */,
+				D9C24F311BD7D0BD000987D0 /* OuroborosTests */,
+				D9C24F1E1BD7D0BD000987D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9C24F1E1BD7D0BD000987D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9C24F1D1BD7D0BD000987D0 /* Ouroboros.app */,
+				D9C24F2E1BD7D0BD000987D0 /* OuroborosTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9C24F1F1BD7D0BD000987D0 /* Ouroboros */ = {
+			isa = PBXGroup;
+			children = (
+				D9C24F201BD7D0BD000987D0 /* AppDelegate.swift */,
+				D9C24F221BD7D0BD000987D0 /* ViewController.swift */,
+				D9C24F241BD7D0BD000987D0 /* Main.storyboard */,
+				D9C24F271BD7D0BD000987D0 /* Assets.xcassets */,
+				D9C24F291BD7D0BD000987D0 /* Info.plist */,
+			);
+			path = Ouroboros;
+			sourceTree = "<group>";
+		};
+		D9C24F311BD7D0BD000987D0 /* OuroborosTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9C24F321BD7D0BD000987D0 /* OuroborosTests.swift */,
+				D9C24F341BD7D0BD000987D0 /* Info.plist */,
+			);
+			path = OuroborosTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9C24F1C1BD7D0BD000987D0 /* Ouroboros */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9C24F371BD7D0BD000987D0 /* Build configuration list for PBXNativeTarget "Ouroboros" */;
+			buildPhases = (
+				D9C24F191BD7D0BD000987D0 /* Sources */,
+				D9C24F1A1BD7D0BD000987D0 /* Frameworks */,
+				D9C24F1B1BD7D0BD000987D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ouroboros;
+			productName = Ouroboros;
+			productReference = D9C24F1D1BD7D0BD000987D0 /* Ouroboros.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D9C24F2D1BD7D0BD000987D0 /* OuroborosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9C24F3A1BD7D0BD000987D0 /* Build configuration list for PBXNativeTarget "OuroborosTests" */;
+			buildPhases = (
+				D9C24F2A1BD7D0BD000987D0 /* Sources */,
+				D9C24F2B1BD7D0BD000987D0 /* Frameworks */,
+				D9C24F2C1BD7D0BD000987D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9C24F301BD7D0BD000987D0 /* PBXTargetDependency */,
+			);
+			name = OuroborosTests;
+			productName = OuroborosTests;
+			productReference = D9C24F2E1BD7D0BD000987D0 /* OuroborosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9C24F151BD7D0BD000987D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "WillowTree Apps";
+				TargetAttributes = {
+					D9C24F1C1BD7D0BD000987D0 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					D9C24F2D1BD7D0BD000987D0 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = D9C24F1C1BD7D0BD000987D0;
+					};
+				};
+			};
+			buildConfigurationList = D9C24F181BD7D0BD000987D0 /* Build configuration list for PBXProject "Ouroboros" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D9C24F141BD7D0BD000987D0;
+			productRefGroup = D9C24F1E1BD7D0BD000987D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9C24F1C1BD7D0BD000987D0 /* Ouroboros */,
+				D9C24F2D1BD7D0BD000987D0 /* OuroborosTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9C24F1B1BD7D0BD000987D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9C24F281BD7D0BD000987D0 /* Assets.xcassets in Resources */,
+				D9C24F261BD7D0BD000987D0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9C24F2C1BD7D0BD000987D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9C24F191BD7D0BD000987D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9C24F231BD7D0BD000987D0 /* ViewController.swift in Sources */,
+				D9C24F211BD7D0BD000987D0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9C24F2A1BD7D0BD000987D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9C24F331BD7D0BD000987D0 /* OuroborosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D9C24F301BD7D0BD000987D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9C24F1C1BD7D0BD000987D0 /* Ouroboros */;
+			targetProxy = D9C24F2F1BD7D0BD000987D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D9C24F241BD7D0BD000987D0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9C24F251BD7D0BD000987D0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D9C24F351BD7D0BD000987D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		D9C24F361BD7D0BD000987D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9C24F381BD7D0BD000987D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = Ouroboros/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.Ouroboros;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D9C24F391BD7D0BD000987D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = Ouroboros/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.Ouroboros;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D9C24F3B1BD7D0BD000987D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OuroborosTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ouroboros.app/Ouroboros";
+			};
+			name = Debug;
+		};
+		D9C24F3C1BD7D0BD000987D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OuroborosTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ouroboros.app/Ouroboros";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9C24F181BD7D0BD000987D0 /* Build configuration list for PBXProject "Ouroboros" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9C24F351BD7D0BD000987D0 /* Debug */,
+				D9C24F361BD7D0BD000987D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9C24F371BD7D0BD000987D0 /* Build configuration list for PBXNativeTarget "Ouroboros" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9C24F381BD7D0BD000987D0 /* Debug */,
+				D9C24F391BD7D0BD000987D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D9C24F3A1BD7D0BD000987D0 /* Build configuration list for PBXNativeTarget "OuroborosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9C24F3B1BD7D0BD000987D0 /* Debug */,
+				D9C24F3C1BD7D0BD000987D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9C24F151BD7D0BD000987D0 /* Project object */;
+}
