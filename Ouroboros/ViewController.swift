@@ -50,7 +50,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 10
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
     }
     
     func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
@@ -61,8 +65,43 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //    
     var lastOffset: CGFloat = 0
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        guard let jumpIndex = carousel.jumpFromIndex else {
+            return
+        }
+        //        guard let jumpCell = carousel.manualFocusCell else {
+        //            return
+        //        }
+        
+        
+        // TODO: screen frame - cell width plus margins / 2 ?
+        let desiredOffset = CGFloat(jumpIndex) * 1000.0 - 460.0
+        let currentOffset = scrollView.contentOffset.x
+        
+        print("Checking in scroll current: \(currentOffset) vs desired \(desiredOffset)")
+        print("Difference is \(desiredOffset - currentOffset)")
+        
+        
+        if (carousel.focusHeading == .Left  && currentOffset <= desiredOffset) ||
+           (carousel.focusHeading == .Right && currentOffset >= desiredOffset) {
+            
+            print("JUMPING TO \(carousel.jumpToIndex!)")
+            let jumpPath = NSIndexPath(forItem: carousel.jumpToIndex!, inSection: 0)
+            carousel.scrollToItemAtIndexPath(jumpPath, atScrollPosition: .CenteredHorizontally, animated: false)
+            
+            carousel.manualFocusCell = NSIndexPath(forItem: carousel.jumpToFocusIndex!, inSection: 0)
+            carousel.setNeedsFocusUpdate()
+            
+            carousel.jumpFromIndex = nil
+        }
+        
+
+    }
+        
+        
 //        print("did scroll yo")
-        updatePageControl(scrollView)
+//        updatePageControl(scrollView)
+//        handleScrollToEdge(scrollView)
 //
 //        guard let jumpCell = carousel.manualFocusCell {
 //            
@@ -71,20 +110,51 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        lastOffset = scrollView.contentOffset.x
         //                self.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
         //                self.setNeedsFocusUpdate()
-
-    }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        guard let jumpCell = carousel.manualFocusCell else {
-            return
-        }
-        
-        carousel.scrollToItemAtIndexPath(jumpCell, atScrollPosition: .CenteredHorizontally, animated: false)
-        carousel.setNeedsFocusUpdate()
-    }
+//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+//        guard let jumpCell = carousel.manualFocusCell else {
+//            return
+//        }
+//        
+//        carousel.scrollToItemAtIndexPath(jumpCell, atScrollPosition: .CenteredHorizontally, animated: false)
+//        carousel.setNeedsFocusUpdate()
+//    }
+//    
+//    var currentCard = 0
+//    func updatePageControl(scrollView: UIScrollView) {
+//
+//        let point = CGPointMake(scrollView.contentOffset.x + 1000 / 2, 0)
+//        print("point for test is \(point) -- offset \(scrollView.contentOffset.x)")
+//        if let index = carousel.indexPathForItemAtPoint(point)?.item {
+//            if index != currentCard {
+//                print("current card is now \(index)")
+//                currentCard = index
+//            }
+//            
+//        }
+//    }
     
 //    func handleScrollToEdge(scrollView: UIScrollView) {
-//        if currentCard == colors.count - buffer {
+//        guard let jumpIndex = carousel.jumpFromIndex else {
+//            return
+//        }
+////        guard let jumpCell = carousel.manualFocusCell else {
+////            return
+////        }
+//        
+//        
+//        scrollView.contentOffset.x
+//        guard currentCard == jumpIndex else {
+//            return
+//        }
+//        
+//        print("JUMPING TO \(carousel.jumpToIndex!)")
+//        let jumpPath = NSIndexPath(forItem: carousel.jumpToIndex!, inSection: 0)
+//        carousel.manualFocusCell = jumpPath
+//        carousel.scrollToItemAtIndexPath(jumpPath, atScrollPosition: .CenteredHorizontally, animated: false)
+//        carousel.setNeedsFocusUpdate()
+//    }
+//        if currentCard =- colors.count - buffer {
 //            let newIndexPath = NSIndexPath(forItem: 2, inSection: 0)
 //            carousel.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: false)
 //            currentCard = 2
@@ -94,7 +164,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //            collectionView.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: false)
 //            currentCard = cards.count - 3
 //        }
-//    }
 
     
 //    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
@@ -117,14 +186,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        carousel.setNeedsFocusUpdate()
 //    }
     
-    var currentCard = 0
-    func updatePageControl(scrollView: UIScrollView) {
-        let point = CGPointMake(scrollView.contentOffset.x + 1000 / 2, 0)
-        if let index = carousel.indexPathForItemAtPoint(point)?.item {
-            print("current card is now \(index)")
-            currentCard = index
-        }
-    }
 }
 
 class ColoredCell: UICollectionViewCell {

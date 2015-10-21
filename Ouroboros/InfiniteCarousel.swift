@@ -20,54 +20,79 @@ class InfiniteCarousel: UICollectionView {
             print("Asking -- returning false due to no to path")
             return false
         }
-        if (to!.item >= 2 * buffer + count - 1) || (to!.item <= buffer - 1) {
-            print("Asking -- returning false due to \(to!.item) being out of bounds")
-            return false
+//        if (to!.item >= 2 * buffer + count - 1) || (to!.item <= buffer - 1) {
+//            print("Asking -- returning false due to \(to!.item) being out of bounds")
+//            return false
+//        }
+
+        focusHeading = context.focusHeading
+        if focusHeading == .Left && to!.item < buffer {
+            print("Going left, asking to go to \(to!.item); sending to \(buffer + count - 1)")
+            jumpFromIndex = jumpFromIndex ?? to!.item
+            jumpToIndex = buffer + count - 1
+            jumpToFocusIndex = to!.item + count
+//            return false
         }
+        
+        if focusHeading == .Right && to!.item >= buffer + count {
+            print("Going right, asking to go to \(to!.item); sending to \(buffer)")
+            jumpFromIndex = jumpFromIndex ?? to!.item
+            jumpToIndex = buffer
+            jumpToFocusIndex = to!.item - count
+//            return false
+        }
+
         return true
     }
     
-    override func didUpdateFocusInContext(context: UIFocusUpdateContext,
-        withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-            super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
-            
-//            print("Did update")
-            let (_, to) = self.convertToIndexPaths(context)
-            guard to != nil else {
-//                print("No to path in did Update")
-                return
-            }
-            
-//            print("Going from \(debugFocusChange(context))")
-            
-            let index = to!.item
-            let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
-            let adjustedIndex = wrapped % count
-            
-            guard adjustedIndex != (index - buffer) else {
-                return
-            }
-            
-            var newIndexPath: NSIndexPath
-
-            if (adjustedIndex < (index - buffer) && context.focusHeading == .Right) {
-                newIndexPath = NSIndexPath(forItem: 0 + buffer, inSection: 0)
-            } else if (adjustedIndex > (index - buffer) && context.focusHeading == .Left) {
-                newIndexPath = NSIndexPath(forItem: count - 1 + buffer, inSection: 0)
-            } else {
-                return
-            }
-            
-            coordinator.addCoordinatedAnimations(nil) { () -> Void in
-                self.manualFocusCell = newIndexPath
-                print("Sending to \(newIndexPath.item)")
-//                self.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
-//                self.setNeedsFocusUpdate()
-            }
-    }
+//    override func didUpdateFocusInContext(context: UIFocusUpdateContext,
+//        withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+//            super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
+//            
+////            print("Did update")
+//            let (_, to) = self.convertToIndexPaths(context)
+//            guard to != nil else {
+////                print("No to path in did Update")
+//                return
+//            }
+//            
+////            print("Going from \(debugFocusChange(context))")
+//            
+//            let index = to!.item
+//            let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
+//            let adjustedIndex = wrapped % count
+//            
+//            guard adjustedIndex != (index - buffer) else {
+//                return
+//            }
+//            
+//            var newIndexPath: NSIndexPath
+//
+//            if (adjustedIndex < (index - buffer) && context.focusHeading == .Right) {
+//                newIndexPath = NSIndexPath(forItem: 0 + buffer, inSection: 0)
+//            } else if (adjustedIndex > (index - buffer) && context.focusHeading == .Left) {
+//                newIndexPath = NSIndexPath(forItem: count - 1 + buffer, inSection: 0)
+//            } else {
+//                return
+//            }
+//            
+//            self.jumpFromIndex = Int(index)
+//            self.jumpToIndex = Int(newIndexPath.item)
+//            self.focusHeading = context.focusHeading
+//            
+////            coordinator.addCoordinatedAnimations(nil) { () -> Void in
+////                self.manualFocusCell = newIndexPath
+////                print("Sending to \(newIndexPath.item)")
+//////                self.scrollToItemAtIndexPath(newIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
+//////                self.setNeedsFocusUpdate()
+////            }
+//    }
     
-//    var jumpFromIndex: Int?
-//    var jumpToIndex: Int?
+    var jumpFromIndex: Int?
+    var jumpToIndex: Int?
+    var jumpToFocusIndex: Int?
+    var focusHeading: UIFocusHeading?
+
     var manualFocusCell: NSIndexPath?// = NSIndexPath(forItem: 2, inSection: 0)
     override weak var preferredFocusedView: UIView? {
         if manualFocusCell == nil {
@@ -78,6 +103,7 @@ class InfiniteCarousel: UICollectionView {
         print("I prefer focus on \(manualFocusCell!.item)")
         let path = manualFocusCell!
         manualFocusCell = nil
+        jumpFromIndex = nil
         return self.cellForItemAtIndexPath(path)
     }
     
