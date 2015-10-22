@@ -42,26 +42,26 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         
         focusHeading = context.focusHeading
         if focusHeading == .Left {
-            if to!.item < 0 {
-                return false
-            }
+//            if to!.item < 0 {
+//                return false
+//            }
             if to!.item < buffer {
-                print("Going left, asking to go to \(to!.item); sending to \(buffer + count - 1); focusing on \(to!.item + count)")
                 jumpFromIndex = jumpFromIndex ?? to!.item
                 jumpToIndex = buffer + count - 1
                 jumpToFocusIndex = to!.item + count
+                print("Going left, from \(jumpFromIndex!); sending to \(jumpToIndex!); focusing on \(jumpToFocusIndex!)")
             }
         }
         
         if focusHeading == .Right {
-            if to!.item >= 2*buffer + count {
-                return false
-            }
+//            if to!.item >= 2*buffer + count {
+//                return false
+//            }
             if to!.item >= buffer + count {
-                print("Going right, asking to go to \(to!.item); sending to \(buffer); focusing on \(to!.item - count)")
                 jumpFromIndex = jumpFromIndex ?? to!.item
                 jumpToIndex = buffer
                 jumpToFocusIndex = to!.item - count
+                print("Going right, from \(jumpFromIndex!); sending to \(jumpToIndex!); focusing on \(jumpToFocusIndex!)")
             }
         }
 
@@ -144,10 +144,12 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         // TODO: screen frame - cell width plus margins / 2 ?
         let desiredOffset = CGFloat(jumpIndex) * 1000.0 - 460.0
         let currentOffset = scrollView.contentOffset.x
-
+        
+        print("TESTING \(currentOffset) <?> \(desiredOffset) from jump \(jumpIndex)")
         if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
             (focusHeading == .Right && currentOffset >= desiredOffset) {
                 
+                print("Jumping to \(jumpToIndex!) focusing on \(jumpToFocusIndex!)")
                 jumpFromIndex = nil
                 
                 let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
