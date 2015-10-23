@@ -28,10 +28,11 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.dataSource = self
-        self.delegate = self
     }
-
+    
+    var respondingChainDelegate : WTACarouselResponderChain?
+    var respondingChainDatasource : WTACarouselResponderChain?
+    
     /// Cached count of current number of items
     private var count = 0
     
@@ -40,6 +41,24 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
     var jumpToFocusIndex: Int?
     var focusHeading: UIFocusHeading?
     var manualFocusCell: NSIndexPath?
+
+    override func awakeFromNib() {
+        let delegate = WTACarouselResponderChain()
+        delegate.firstResponder = self;
+        delegate.secondResponder = rootDelegate;
+        
+        let dataSource = WTACarouselResponderChain()
+        dataSource.firstResponder = self;
+        dataSource.secondResponder = rootDataSource;
+        
+        
+        respondingChainDelegate = delegate
+        respondingChainDatasource = dataSource
+        
+        self.delegate = respondingChainDelegate;
+        self.dataSource = respondingChainDatasource;
+    }
+    
     
     override weak var preferredFocusedView: UIView? {
         guard let path = manualFocusCell else {
