@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		95C1C0719D6F16428B673622 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFFC46490C38B34852267AD /* Pods.framework */; };
+		D95AA2541BDA88E90080C25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2531BDA88E90080C25B /* AppDelegate.swift */; };
+		D95AA2561BDA88E90080C25B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2551BDA88E90080C25B /* ViewController.swift */; };
+		D95AA2591BDA88E90080C25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95AA2571BDA88E90080C25B /* Main.storyboard */; };
+		D95AA25B1BDA88EA0080C25B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D95AA25A1BDA88EA0080C25B /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		4CFFC46490C38B34852267AD /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D95AA2501BDA88E90080C25B /* OuroborosExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OuroborosExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D95AA2531BDA88E90080C25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D95AA2551BDA88E90080C25B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D95AA2581BDA88E90080C25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D95AA25A1BDA88EA0080C25B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D95AA25C1BDA88EA0080C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D95AA24D1BDA88E90080C25B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95C1C0719D6F16428B673622 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B4147E9CFA684FD605C2429 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4CFFC46490C38B34852267AD /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC1C1A51C944E3E0D2DB175C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */,
+				F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D95AA2471BDA88E90080C25B = {
+			isa = PBXGroup;
+			children = (
+				D95AA2521BDA88E90080C25B /* OuroborosExample */,
+				D95AA2511BDA88E90080C25B /* Products */,
+				AC1C1A51C944E3E0D2DB175C /* Pods */,
+				0B4147E9CFA684FD605C2429 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D95AA2511BDA88E90080C25B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D95AA2501BDA88E90080C25B /* OuroborosExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D95AA2521BDA88E90080C25B /* OuroborosExample */ = {
+			isa = PBXGroup;
+			children = (
+				D95AA2531BDA88E90080C25B /* AppDelegate.swift */,
+				D95AA2551BDA88E90080C25B /* ViewController.swift */,
+				D95AA2571BDA88E90080C25B /* Main.storyboard */,
+				D95AA25A1BDA88EA0080C25B /* Assets.xcassets */,
+				D95AA25C1BDA88EA0080C25B /* Info.plist */,
+			);
+			path = OuroborosExample;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D95AA24F1BDA88E90080C25B /* OuroborosExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D95AA25F1BDA88EA0080C25B /* Build configuration list for PBXNativeTarget "OuroborosExample" */;
+			buildPhases = (
+				2A5FDAB20A4CE55AABE8D794 /* Check Pods Manifest.lock */,
+				D95AA24C1BDA88E90080C25B /* Sources */,
+				D95AA24D1BDA88E90080C25B /* Frameworks */,
+				D95AA24E1BDA88E90080C25B /* Resources */,
+				1F2BAA8832477F56BFC6A16F /* Embed Pods Frameworks */,
+				50578C8FA985FADA6A5E9F70 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OuroborosExample;
+			productName = OuroborosExample;
+			productReference = D95AA2501BDA88E90080C25B /* OuroborosExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D95AA2481BDA88E90080C25B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "WillowTree Apps";
+				TargetAttributes = {
+					D95AA24F1BDA88E90080C25B = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = D95AA24B1BDA88E90080C25B /* Build configuration list for PBXProject "OuroborosExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D95AA2471BDA88E90080C25B;
+			productRefGroup = D95AA2511BDA88E90080C25B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D95AA24F1BDA88E90080C25B /* OuroborosExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D95AA24E1BDA88E90080C25B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D95AA25B1BDA88EA0080C25B /* Assets.xcassets in Resources */,
+				D95AA2591BDA88E90080C25B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F2BAA8832477F56BFC6A16F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A5FDAB20A4CE55AABE8D794 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		50578C8FA985FADA6A5E9F70 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D95AA24C1BDA88E90080C25B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D95AA2561BDA88E90080C25B /* ViewController.swift in Sources */,
+				D95AA2541BDA88E90080C25B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D95AA2571BDA88E90080C25B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D95AA2581BDA88E90080C25B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D95AA25D1BDA88EA0080C25B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		D95AA25E1BDA88EA0080C25B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D95AA2601BDA88EA0080C25B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = OuroborosExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D95AA2611BDA88EA0080C25B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = OuroborosExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D95AA24B1BDA88E90080C25B /* Build configuration list for PBXProject "OuroborosExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D95AA25D1BDA88EA0080C25B /* Debug */,
+				D95AA25E1BDA88EA0080C25B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D95AA25F1BDA88EA0080C25B /* Build configuration list for PBXNativeTarget "OuroborosExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D95AA2601BDA88EA0080C25B /* Debug */,
+				D95AA2611BDA88EA0080C25B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D95AA2481BDA88E90080C25B /* Project object */;
+}

@@ -1,0 +1,5 @@
+use_frameworks!
+platform :tvos, '9.0'
+inhibit_all_warnings!
+
+pod 'Ouroboros', path: '..'

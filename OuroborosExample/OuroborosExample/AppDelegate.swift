@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Ouroboros
+//  OuroborosExample
 //
-//  Created by Ian Terrell on 10/21/15.
+//  Created by Ian Terrell on 10/23/15.
 //  Copyright © 2015 WillowTree Apps. All rights reserved.
 //
 

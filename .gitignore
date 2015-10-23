@@ -1,6 +1,8 @@
 # Xcode
 # Pulled from: https://github.com/github/gitignore/blob/master/Swift.gitignore
 
+OuroborosExample/Pods
+
 ## Build generated
 
 ## Various settings
@@ -25,4 +27,3 @@ xcuserdata
 *.ipa
 
 **.DS_Store
-
