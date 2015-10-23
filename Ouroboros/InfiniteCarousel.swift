@@ -8,30 +8,33 @@
 
 import UIKit
 
-class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     /// The number of cells to show on either end of the core datasource cells
-    @IBInspectable var buffer: Int = 2
+    @IBInspectable public var buffer: Int = 2
     
     /// The number of cells ahead of the currently centered one to allow focus on
-    @IBInspectable var focusAheadLimit: Int = 1
+    @IBInspectable public var focusAheadLimit: Int = 1
 
     /*
      * To connect protocol-typed outlets in IB, change them to AnyObject! temporarily.
      */
     
     /// The real data source for the carousel
-    @IBOutlet var rootDataSource: UICollectionViewDataSource!
-    
-    /// The real delegate for the carousel
-    @IBOutlet var rootDelegate: UICollectionViewDelegateFlowLayout!
+    @IBOutlet public var rootDataSource: UICollectionViewDataSource!
 
-    required init?(coder aDecoder: NSCoder) {
+    /// The real delegate for the carousel
+    @IBOutlet public var rootDelegate: UICollectionViewDelegateFlowLayout!
+    
+    // The data source we use to reference ourselves and then the root data source
+    var respondingChainDataSource: InfiniteCarouselDataSource!
+    
+    // The delegate we use to reference ourselves and then the root delegate
+    var respondingChainDelegate: InfiniteCarouselDelegate!
+    
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    var respondingChainDelegate : WTACarouselResponderChain?
-    var respondingChainDatasource : WTACarouselResponderChain?
     
     /// Cached count of current number of items
     private var count = 0
@@ -42,25 +45,15 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
     var focusHeading: UIFocusHeading?
     var manualFocusCell: NSIndexPath?
 
-    override func awakeFromNib() {
-        let delegate = WTACarouselResponderChain()
-        delegate.firstResponder = self;
-        delegate.secondResponder = rootDelegate;
+    override public func awakeFromNib() {
+        respondingChainDataSource = InfiniteCarouselDataSource(firstResponder: self, second: rootDataSource)
+        self.dataSource = respondingChainDataSource
         
-        let dataSource = WTACarouselResponderChain()
-        dataSource.firstResponder = self;
-        dataSource.secondResponder = rootDataSource;
-        
-        
-        respondingChainDelegate = delegate
-        respondingChainDatasource = dataSource
-        
+        respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate)
         self.delegate = respondingChainDelegate;
-        self.dataSource = respondingChainDatasource;
     }
     
-    
-    override weak var preferredFocusedView: UIView? {
+    override public weak var preferredFocusedView: UIView? {
         guard let path = manualFocusCell else {
             return nil
         }
@@ -68,12 +61,12 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         return self.cellForItemAtIndexPath(path)
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         count = rootDataSource.collectionView(collectionView, numberOfItemsInSection: section)
         return count + 2 * buffer
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let index = indexPath.item
         let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
         let adjustedIndex = wrapped % count
@@ -81,19 +74,7 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: adjustedIndex, inSection: 0))
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(1000, self.frame.size.height)
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
+    public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
         guard let to = context.nextFocusedIndexPath else {
             // Not in our carousel; allow user to exit
             return true
@@ -133,7 +114,7 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         return true
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         guard let jumpIndex = jumpFromIndex else {
             return
         }
