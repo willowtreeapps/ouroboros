@@ -9,101 +9,44 @@
 import UIKit
 
 class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    @IBInspectable var buffer = 5
     
-    var count = 0
+    /// The number of cells to show on either end of the core datasource cells
+    @IBInspectable var buffer: Int = 2
     
-    var rootDataSource: UICollectionViewDataSource!
-    var rootDelegate: UICollectionViewDelegateFlowLayout!
+    /// The number of cells ahead of the currently centered one to allow focus on
+    @IBInspectable var focusAheadLimit: Int = 1
+
+    /*
+     * To connect protocol-typed outlets in IB, change them to AnyObject! temporarily.
+     */
     
+    /// The real data source for the carousel
+    @IBOutlet var rootDataSource: UICollectionViewDataSource!
+    
+    /// The real delegate for the carousel
+    @IBOutlet var rootDelegate: UICollectionViewDelegateFlowLayout!
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         self.dataSource = self
         self.delegate = self
     }
-    
-    override func shouldUpdateFocusInContext(context: UIFocusUpdateContext) -> Bool {
-        print("shouldUpdateFocusInContext: " + debugFocusChange(context))
-        
-        let (_, to) = self.convertToIndexPaths(context)
-        guard to != nil else {
-            return false
-        }
 
-        if jumpFromIndex != nil {
-            if focusHeading != context.focusHeading {
-                // Swapped directions mid jump -- abort
-                jumpFromIndex = nil
-                jumpToIndex = nil
-                jumpToFocusIndex = nil
-            }
-        }
-        
-        focusHeading = context.focusHeading
-        if focusHeading == .Left {
-//            if to!.item < 0 {
-//                return false
-//            }
-            if to!.item < buffer {
-                jumpFromIndex = jumpFromIndex ?? to!.item
-                jumpToIndex = buffer + count - 1
-                jumpToFocusIndex = to!.item + count
-                print("Going left, from \(jumpFromIndex!); sending to \(jumpToIndex!); focusing on \(jumpToFocusIndex!)")
-            }
-        }
-        
-        if focusHeading == .Right {
-//            if to!.item >= 2*buffer + count {
-//                return false
-//            }
-            if to!.item >= buffer + count {
-                jumpFromIndex = jumpFromIndex ?? to!.item
-                jumpToIndex = buffer
-                jumpToFocusIndex = to!.item - count
-                print("Going right, from \(jumpFromIndex!); sending to \(jumpToIndex!); focusing on \(jumpToFocusIndex!)")
-            }
-        }
-
-        return true
-    }
-    
-    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        print("didUpdateFocus: " + debugFocusChange(context))
-        
-        super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
-    }
-
+    /// Cached count of current number of items
+    private var count = 0
     
     var jumpFromIndex: Int?
     var jumpToIndex: Int?
     var jumpToFocusIndex: Int?
     var focusHeading: UIFocusHeading?
-
-    var manualFocusCell: NSIndexPath?// = NSIndexPath(forItem: 2, inSection: 0)
+    var manualFocusCell: NSIndexPath?
+    
     override weak var preferredFocusedView: UIView? {
-        if manualFocusCell == nil {
-            print("No manual focus; nil preferred focused view")
+        guard let path = manualFocusCell else {
             return nil
         }
-        
-        print("I prefer focus on \(manualFocusCell!.item)")
-        let path = manualFocusCell!
         manualFocusCell = nil
-        jumpFromIndex = nil
         return self.cellForItemAtIndexPath(path)
-    }
-    
-    func convertToIndexPaths(context: UIFocusUpdateContext) -> (from: NSIndexPath?, to: NSIndexPath?) {
-        var from: NSIndexPath?
-        var to: NSIndexPath?
-        if let previouslyFocusedCell = context.previouslyFocusedView as? UICollectionViewCell {
-            from = self.indexPathForCell(previouslyFocusedCell)
-        }
-        if let nextFocusedCell = context.nextFocusedView as? UICollectionViewCell {
-            to = self.indexPathForCell(nextFocusedCell)
-        }
-        return (from: from, to: to)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -132,10 +75,45 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
+        guard let to = context.nextFocusedIndexPath else {
+            // Not in our carousel; allow user to exit
+            return true
+        }
+        
+        // Ensure we're not trying to focus too far away
+        let testPoint = CGPointMake(self.contentOffset.x + self.bounds.width/2,self.bounds.height/2)
+        let centerPath = self.indexPathForItemAtPoint(testPoint)
+        if centerPath == nil {
+            fatalError("todo: test center + interitem space + 1? testpoint: \(testPoint)")
+        }
+        if abs(to.item - centerPath!.item) > focusAheadLimit {
+            return false
+        }
+        
+        if jumpFromIndex != nil && focusHeading != context.focusHeading {
+            // Swapped directions mid jump -- abort
+            jumpFromIndex = nil
+            jumpToIndex = nil
+            jumpToFocusIndex = nil
+        }
+        
+        focusHeading = context.focusHeading
+        
+        if focusHeading == .Left && to.item < buffer {
+            jumpFromIndex = jumpFromIndex ?? to.item
+            jumpToIndex = buffer + count - 1
+            jumpToFocusIndex = to.item + count
+        }
+        
+        if focusHeading == .Right && to.item >= buffer + count {
+            jumpFromIndex = jumpFromIndex ?? to.item
+            jumpToIndex = buffer
+            jumpToFocusIndex = to.item - count
+        }
+        
         return true
     }
     
-    var lastOffset: CGFloat = 0
     func scrollViewDidScroll(scrollView: UIScrollView) {
         guard let jumpIndex = jumpFromIndex else {
             return
@@ -145,25 +123,19 @@ class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollecti
         let desiredOffset = CGFloat(jumpIndex) * 1000.0 - 460.0
         let currentOffset = scrollView.contentOffset.x
         
-        print("TESTING \(currentOffset) <?> \(desiredOffset) from jump \(jumpIndex)")
         if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
-            (focusHeading == .Right && currentOffset >= desiredOffset) {
-                
-                print("Jumping to \(jumpToIndex!) focusing on \(jumpToFocusIndex!)")
-                jumpFromIndex = nil
-                
-                let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
-                scrollToItemAtIndexPath(jumpPath, atScrollPosition: .CenteredHorizontally, animated: false)
-                
-                manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
-                setNeedsFocusUpdate()
-                
+            (focusHeading == .Right && currentOffset >= desiredOffset)
+        {
+            // Jump!
+            
+            jumpFromIndex = nil
+            
+            let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
+            scrollToItemAtIndexPath(jumpPath, atScrollPosition: .CenteredHorizontally, animated: false)
+            
+            manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
+            setNeedsFocusUpdate()
         }
-    }
-    
-    private func debugFocusChange(context: UIFocusUpdateContext) -> String {
-        let (from, to) = self.convertToIndexPaths(context)
-        return "from \(from?.item ?? -1) to \(to?.item ?? 0) heading \(context.focusHeading == .Right ? "right" : "left")"
     }
 }
 

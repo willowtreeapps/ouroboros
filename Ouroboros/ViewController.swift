@@ -9,8 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     @IBOutlet weak var carousel: InfiniteCarousel!
+    @IBOutlet weak var carousel2: InfiniteCarousel!
     
     let colors: [UIColor] = [
         .redColor(),
@@ -25,10 +26,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         
         carousel.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-        carousel.rootDataSource = self
-        carousel.rootDelegate = self
-        
         carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
+        
+        carousel2.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
+        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer + 3, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
