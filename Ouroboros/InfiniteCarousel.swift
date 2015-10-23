@@ -61,14 +61,6 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     var focusHeading: UIFocusHeading?
     var manualFocusCell: NSIndexPath?
     
-    override public weak var preferredFocusedView: UIView? {
-        guard let path = manualFocusCell else {
-            return nil
-        }
-        manualFocusCell = nil
-        return self.cellForItemAtIndexPath(path)
-    }
-    
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         count = rootDataSource.collectionView(collectionView, numberOfItemsInSection: section)
         return count + 2 * buffer
@@ -84,6 +76,36 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         let adjustedIndex = wrapped % count
         
         return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: adjustedIndex, inSection: 0))
+    }
+    public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
+        assert(collectionView === self)
+        return manualFocusCell
+    }
+    
+//    public func collectionView(_ collectionView: UICollectionView,
+//        didUpdateFocusInContext context: UICollectionViewFocusUpdateContext,
+//        withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+//            
+//    }
+    
+    override public func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        guard jumpFromIndex != nil else {
+            return
+        }
+        
+        jumpFromIndex = nil
+        
+        let jumpDistance = CGFloat(count) * (cellWidth + interitemSpacing)
+        let currentOffset = self.contentOffset.x
+        
+        if focusHeading == .Left {
+            self.setContentOffset(CGPointMake(currentOffset + jumpDistance, self.contentOffset.y), animated: false)
+        } else {
+            self.setContentOffset(CGPointMake(currentOffset - jumpDistance, self.contentOffset.y), animated: false)
+        }
+
+        manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
+        setNeedsFocusUpdate()
     }
     
     public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
@@ -128,31 +150,31 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         return true
     }
     
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let jumpIndex = jumpFromIndex else {
-            return
-        }
-        
-        // TODO: screen frame - cell width plus margins / 2 ?
-        let desiredOffset = CGFloat(jumpIndex) * (cellWidth + interitemSpacing)
-        let currentOffset = scrollView.contentOffset.x
-        
-        print("looking for \(desiredOffset) currently \(currentOffset)")
-        
-        if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
-            (focusHeading == .Right && currentOffset >= desiredOffset)
-        {
-            // Jump!
-            
-            jumpFromIndex = nil
-            
-            let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
-            scrollToItemAtIndexPath(jumpPath, atScrollPosition: .Left, animated: false)
-            
-            manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
-            setNeedsFocusUpdate()
-        }
-    }
+//    public func scrollViewDidScroll(scrollView: UIScrollView) {
+//        guard let jumpIndex = jumpFromIndex else {
+//            return
+//        }
+//        
+//        // TODO: screen frame - cell width plus margins / 2 ?
+//        let desiredOffset = CGFloat(jumpIndex) * (cellWidth + interitemSpacing)
+//        let currentOffset = scrollView.contentOffset.x
+//        
+//        print("looking for \(desiredOffset) currently \(currentOffset)")
+//        
+//        if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
+//            (focusHeading == .Right && currentOffset >= desiredOffset)
+//        {
+//            // Jump!
+//            
+//            jumpFromIndex = nil
+//            
+//            let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
+//            scrollToItemAtIndexPath(jumpPath, atScrollPosition: .Left, animated: false)
+//            
+//            manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
+//            setNeedsFocusUpdate()
+//        }
+//    }
     
     func cellMetricsCached() -> Bool {
         return cellWidth != 0
