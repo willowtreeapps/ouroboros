@@ -44,6 +44,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColoredCell.ID, forIndexPath: indexPath)
         cell.contentView.backgroundColor = colors[indexPath.item]
+        let imageNumber = indexPath.item + 1
+        let suffix = (imageNumber < 10) ? "0\(imageNumber)" : "\(imageNumber)"
+        let image = UIImage(named: "NatGeo\(suffix).jpg")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.adjustsImageWhenAncestorFocused = true
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+        cell.contentView.addSubview(imageView)
+        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .Width, relatedBy: .Equal, toItem: cell, attribute: .Width, multiplier: 0.9, constant: 0))
+        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .Height, relatedBy: .Equal, toItem: cell, attribute: .Height, multiplier: 0.9, constant: 0))
+        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterX, relatedBy: .Equal, toItem: cell, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: cell, attribute: .CenterY, multiplier: 1.0, constant: 0))
         return cell
     }
 }
@@ -59,7 +71,7 @@ class ImageCell: UICollectionViewCell {
 
 class NatGeoDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6 // up to 17
+        return 10 // up to 17
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

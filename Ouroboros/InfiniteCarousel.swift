@@ -10,11 +10,18 @@ import UIKit
 
 public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    /// The number of cells to show on either end of the core datasource cells
-    @IBInspectable public var buffer: Int = 2
-    
-    /// The number of cells ahead of the currently centered one to allow focus on
-    @IBInspectable public var focusAheadLimit: Int = 1
+    /// The number of cells that are generally focused on the screen
+    ///
+    /// Usually the total number of visible is this many + 2, since the edges are showing slices
+    /// of the cells before and after.
+    ///
+    /// This is used to decide both how many cells to add around the core as a buffer for infinite
+    /// scrolling as well as how many cells ahead or behind we allow the user to focus at once.
+    @IBInspectable public var onScreenNumber: Int = 1 {
+        didSet {
+            buffer = onScreenNumber + 1
+        }
+    }
 
     /*
      * To connect protocol-typed outlets in IB, change them to AnyObject! temporarily.
@@ -35,16 +42,15 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             self.delegate = respondingChainDelegate;
         }
     }
-    
+
+    /// Number of cells to buffer
+    public var buffer: Int = 2
+
     // The data source we use to reference ourselves and then the root data source
     var respondingChainDataSource: InfiniteCarouselDataSource!
     
     // The delegate we use to reference ourselves and then the root delegate
     var respondingChainDelegate: InfiniteCarouselDelegate!
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     /// Cached count of current number of items
     private var count = 0
@@ -110,19 +116,9 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return true
         }
         
-        // Ensure we're not trying to focus too far away
-        var centerPath: NSIndexPath? = nil
-        let step: CGFloat = (context.focusHeading == .Left) ? -10 : 10 // TODO: Clean this up
-        var testPoint = CGPointMake(self.contentOffset.x + self.bounds.width/2,self.bounds.height/2)
-        while centerPath == nil {
-            centerPath = self.indexPathForItemAtPoint(testPoint)
-            testPoint = CGPointMake(testPoint.x + step, testPoint.y)
-        }
-        if abs(to.item - centerPath!.item) > focusAheadLimit {
+        if nextFocusIsTooFarAway(context) {
             return false
         }
-        
-        focusHeading = context.focusHeading
         
         if focusHeading == .Left && to.item < buffer {
             jump = true
@@ -134,7 +130,30 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             manualFocusCell = NSIndexPath(forItem: to.item - count, inSection: 0)
         }
         
+        focusHeading = context.focusHeading
         return true
+    }
+    
+    /// Returns whether or not the focus is "too far away". 
+    ///
+    /// In this implementation, we're defining the maximum focus distance as roughtly a single 
+    /// screen's worth of content.
+    func nextFocusIsTooFarAway(context: UICollectionViewFocusUpdateContext) -> Bool {
+        var testOffset = self.bounds.width / (CGFloat(onScreenNumber) + 1.0)
+        if context.focusHeading == .Right {
+            testOffset *= CGFloat(onScreenNumber)
+        }
+        var testPoint = CGPointMake(self.contentOffset.x + testOffset, self.bounds.height/2)
+        
+        var testPath: NSIndexPath? = nil
+        let step: CGFloat = (context.focusHeading == .Left) ? -10 : 10 // TODO: Is this best?
+        while testPath == nil {
+            testPath = self.indexPathForItemAtPoint(testPoint)
+            testPoint = CGPointMake(testPoint.x + step, testPoint.y)
+        }
+        
+        let to = context.nextFocusedIndexPath!
+        return abs(to.item - testPath!.item) > onScreenNumber
     }
     
     func cellMetricsCached() -> Bool {
