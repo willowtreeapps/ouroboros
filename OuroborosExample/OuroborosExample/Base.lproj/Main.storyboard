@@ -17,12 +17,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-Ne-gnG" customClass="InfiniteCarousel" customModule="Ouroboros">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="260"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="auj-LI-b1O"/>
+                                    <constraint firstAttribute="height" constant="260" id="auj-LI-b1O"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KIH-Hg-4CY" customClass="CenteringFlowLayout" customModule="Ouroboros">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KIH-Hg-4CY" customClass="CenteringFlowLayout" customModule="Ouroboros">
+                                    <size key="itemSize" width="1000" height="260"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -42,28 +42,85 @@
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-ta-p19" customClass="InfiniteCarousel" customModule="Ouroboros">
-                                <rect key="frame" x="0.0" y="400" width="1920" height="200"/>
+                                <rect key="frame" x="0.0" y="270" width="1920" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="pki-f3-ci9"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0p7-my-7pH">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="18" minimumInteritemSpacing="18" id="0p7-my-7pH">
+                                    <size key="itemSize" width="860" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="buffer">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="focusAheadLimit">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="rootDataSource" destination="BYZ-38-t0r" id="HM1-uD-0iS"/>
                                     <outlet property="rootDelegate" destination="BYZ-38-t0r" id="YHh-xb-h7Y"/>
                                 </connections>
                             </collectionView>
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Lm-K5-YMg" customClass="InfiniteCarousel" customModule="Ouroboros">
+                                <rect key="frame" x="0.0" y="500" width="1920" height="540"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="540" id="dqU-4b-70b"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="50" minimumInteritemSpacing="20" id="f5E-DX-n5i" customClass="CenteringFlowLayout" customModule="Ouroboros">
+                                    <size key="itemSize" width="864" height="540"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="mvq-lc-kzX" customClass="ImageCell" customModule="OuroborosExample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="864" height="540"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="864" height="540"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyL-HX-Cpv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="864" height="540"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.42187408609999999" green="1" blue="0.89891723749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="TyL-HX-Cpv" secondAttribute="trailing" id="5t6-aR-dvD"/>
+                                            <constraint firstItem="TyL-HX-Cpv" firstAttribute="top" secondItem="mvq-lc-kzX" secondAttribute="top" id="JKz-39-XFq"/>
+                                            <constraint firstItem="TyL-HX-Cpv" firstAttribute="leading" secondItem="mvq-lc-kzX" secondAttribute="leading" id="PPI-G3-URs"/>
+                                            <constraint firstAttribute="bottom" secondItem="TyL-HX-Cpv" secondAttribute="bottom" id="dpU-cJ-EP3"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="TyL-HX-Cpv" id="SWz-PN-4Hg"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="buffer">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="focusAheadLimit">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="5Lm-K5-YMg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8AF-uj-b7b"/>
+                            <constraint firstAttribute="trailing" secondItem="5Lm-K5-YMg" secondAttribute="trailing" id="W6u-YV-wiK"/>
                             <constraint firstItem="ibD-Ne-gnG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="X6e-Rm-jlA"/>
                             <constraint firstItem="ibD-Ne-gnG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="arM-3H-7v1"/>
-                            <constraint firstItem="lQK-ta-p19" firstAttribute="top" secondItem="ibD-Ne-gnG" secondAttribute="bottom" id="nKt-Re-CJ5"/>
+                            <constraint firstItem="5Lm-K5-YMg" firstAttribute="top" secondItem="lQK-ta-p19" secondAttribute="bottom" constant="30" id="ehV-qK-4Qe"/>
+                            <constraint firstItem="lQK-ta-p19" firstAttribute="top" secondItem="ibD-Ne-gnG" secondAttribute="bottom" constant="10" id="nKt-Re-CJ5"/>
                             <constraint firstAttribute="trailing" secondItem="ibD-Ne-gnG" secondAttribute="trailing" id="pFm-hf-POK"/>
                             <constraint firstItem="lQK-ta-p19" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pmg-jH-ezP"/>
                             <constraint firstAttribute="trailing" secondItem="lQK-ta-p19" secondAttribute="trailing" id="qOz-bK-cgU"/>
@@ -72,11 +129,12 @@
                     <connections>
                         <outlet property="carousel" destination="ibD-Ne-gnG" id="Z8p-Mn-WSk"/>
                         <outlet property="carousel2" destination="lQK-ta-p19" id="dY5-5S-fEe"/>
+                        <outlet property="natGeo" destination="5Lm-K5-YMg" id="dq4-Ic-NpW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="240" y="429"/>
+            <point key="canvasLocation" x="-102" y="447"/>
         </scene>
     </scenes>
 </document>

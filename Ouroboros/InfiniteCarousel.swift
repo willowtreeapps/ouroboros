@@ -21,10 +21,20 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
      */
     
     /// The real data source for the carousel
-    @IBOutlet public var rootDataSource: UICollectionViewDataSource!
+    @IBOutlet public var rootDataSource: UICollectionViewDataSource! {
+        didSet {
+            respondingChainDataSource = InfiniteCarouselDataSource(firstResponder: self, second: rootDataSource)
+            self.dataSource = respondingChainDataSource
+        }
+    }
 
     /// The real delegate for the carousel
-    @IBOutlet public var rootDelegate: UICollectionViewDelegateFlowLayout!
+    @IBOutlet public var rootDelegate: UICollectionViewDelegateFlowLayout! {
+        didSet {
+            respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate)
+            self.delegate = respondingChainDelegate;
+        }
+    }
     
     // The data source we use to reference ourselves and then the root data source
     var respondingChainDataSource: InfiniteCarouselDataSource!
@@ -39,19 +49,17 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     /// Cached count of current number of items
     private var count = 0
     
+    /// Cached cell width; set when first cell is requested and expected not to change
+    private var cellWidth: CGFloat = 0
+    
+    /// Cached interitem spacing; set when first cell is requested and expected not to change
+    private var interitemSpacing: CGFloat = 0
+    
     var jumpFromIndex: Int?
     var jumpToIndex: Int?
     var jumpToFocusIndex: Int?
     var focusHeading: UIFocusHeading?
     var manualFocusCell: NSIndexPath?
-
-    override public func awakeFromNib() {
-        respondingChainDataSource = InfiniteCarouselDataSource(firstResponder: self, second: rootDataSource)
-        self.dataSource = respondingChainDataSource
-        
-        respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate)
-        self.delegate = respondingChainDelegate;
-    }
     
     override public weak var preferredFocusedView: UIView? {
         guard let path = manualFocusCell else {
@@ -67,6 +75,10 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        if !cellMetricsCached() {
+            cacheCellMetricsWithIndexPath(indexPath)
+        }
+        
         let index = indexPath.item
         let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
         let adjustedIndex = wrapped % count
@@ -81,10 +93,12 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         
         // Ensure we're not trying to focus too far away
-        let testPoint = CGPointMake(self.contentOffset.x + self.bounds.width/2,self.bounds.height/2)
-        let centerPath = self.indexPathForItemAtPoint(testPoint)
-        if centerPath == nil {
-            fatalError("todo: test center + interitem space + 1? testpoint: \(testPoint)")
+        var centerPath: NSIndexPath? = nil
+        let step: CGFloat = (context.focusHeading == .Left) ? -10 : 10 // TODO: Clean this up
+        var testPoint = CGPointMake(self.contentOffset.x + self.bounds.width/2,self.bounds.height/2)
+        while centerPath == nil {
+            centerPath = self.indexPathForItemAtPoint(testPoint)
+            testPoint = CGPointMake(testPoint.x + step, testPoint.y)
         }
         if abs(to.item - centerPath!.item) > focusAheadLimit {
             return false
@@ -120,8 +134,10 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         
         // TODO: screen frame - cell width plus margins / 2 ?
-        let desiredOffset = CGFloat(jumpIndex) * 1000.0 - 460.0
+        let desiredOffset = CGFloat(jumpIndex) * (cellWidth + interitemSpacing)
         let currentOffset = scrollView.contentOffset.x
+        
+        print("looking for \(desiredOffset) currently \(currentOffset)")
         
         if (focusHeading == .Left  && currentOffset <= desiredOffset) ||
             (focusHeading == .Right && currentOffset >= desiredOffset)
@@ -131,10 +147,30 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             jumpFromIndex = nil
             
             let jumpPath = NSIndexPath(forItem: jumpToIndex!, inSection: 0)
-            scrollToItemAtIndexPath(jumpPath, atScrollPosition: .CenteredHorizontally, animated: false)
+            scrollToItemAtIndexPath(jumpPath, atScrollPosition: .Left, animated: false)
             
             manualFocusCell = NSIndexPath(forItem: jumpToFocusIndex!, inSection: 0)
             setNeedsFocusUpdate()
+        }
+    }
+    
+    func cellMetricsCached() -> Bool {
+        return cellWidth != 0
+    }
+    
+    func cacheCellMetricsWithIndexPath(indexPath: NSIndexPath) {
+        if let size = rootDelegate?.collectionView?(self, layout: collectionViewLayout, sizeForItemAtIndexPath: indexPath) {
+            cellWidth = size.width
+        } else {
+            cellWidth = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width
+        }
+        if cellWidth == 0 {
+            preconditionFailure("InfiniteCarousel only be used with a cell width > 0")
+        }
+        if let lineSpacing = rootDelegate?.collectionView?(self, layout: collectionViewLayout, minimumLineSpacingForSectionAtIndex: indexPath.section) {
+            interitemSpacing = lineSpacing
+        } else {
+            interitemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing
         }
     }
 }

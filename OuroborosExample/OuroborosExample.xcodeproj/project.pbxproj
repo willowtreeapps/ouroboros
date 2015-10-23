@@ -12,6 +12,23 @@
 		D95AA2561BDA88E90080C25B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2551BDA88E90080C25B /* ViewController.swift */; };
 		D95AA2591BDA88E90080C25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95AA2571BDA88E90080C25B /* Main.storyboard */; };
 		D95AA25B1BDA88EA0080C25B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D95AA25A1BDA88EA0080C25B /* Assets.xcassets */; };
+		D96197681BDAAE59006650E4 /* NatGeo01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197571BDAAE59006650E4 /* NatGeo01.jpg */; };
+		D96197691BDAAE59006650E4 /* NatGeo02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197581BDAAE59006650E4 /* NatGeo02.jpg */; };
+		D961976A1BDAAE59006650E4 /* NatGeo03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197591BDAAE59006650E4 /* NatGeo03.jpg */; };
+		D961976B1BDAAE59006650E4 /* NatGeo04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975A1BDAAE59006650E4 /* NatGeo04.jpg */; };
+		D961976C1BDAAE59006650E4 /* NatGeo05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975B1BDAAE59006650E4 /* NatGeo05.jpg */; };
+		D961976D1BDAAE59006650E4 /* NatGeo06.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975C1BDAAE59006650E4 /* NatGeo06.jpg */; };
+		D961976E1BDAAE59006650E4 /* NatGeo07.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975D1BDAAE59006650E4 /* NatGeo07.jpg */; };
+		D961976F1BDAAE59006650E4 /* NatGeo08.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975E1BDAAE59006650E4 /* NatGeo08.jpg */; };
+		D96197701BDAAE59006650E4 /* NatGeo09.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D961975F1BDAAE59006650E4 /* NatGeo09.jpg */; };
+		D96197711BDAAE59006650E4 /* NatGeo10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197601BDAAE59006650E4 /* NatGeo10.jpg */; };
+		D96197721BDAAE59006650E4 /* NatGeo11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197611BDAAE59006650E4 /* NatGeo11.jpg */; };
+		D96197731BDAAE59006650E4 /* NatGeo12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197621BDAAE59006650E4 /* NatGeo12.jpg */; };
+		D96197741BDAAE59006650E4 /* NatGeo13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197631BDAAE59006650E4 /* NatGeo13.jpg */; };
+		D96197751BDAAE59006650E4 /* NatGeo14.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197641BDAAE59006650E4 /* NatGeo14.jpg */; };
+		D96197761BDAAE59006650E4 /* NatGeo15.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197651BDAAE59006650E4 /* NatGeo15.jpg */; };
+		D96197771BDAAE59006650E4 /* NatGeo16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197661BDAAE59006650E4 /* NatGeo16.jpg */; };
+		D96197781BDAAE59006650E4 /* NatGeo17.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D96197671BDAAE59006650E4 /* NatGeo17.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +40,23 @@
 		D95AA2581BDA88E90080C25B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D95AA25A1BDA88EA0080C25B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D95AA25C1BDA88EA0080C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D96197571BDAAE59006650E4 /* NatGeo01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo01.jpg; sourceTree = "<group>"; };
+		D96197581BDAAE59006650E4 /* NatGeo02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo02.jpg; sourceTree = "<group>"; };
+		D96197591BDAAE59006650E4 /* NatGeo03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo03.jpg; sourceTree = "<group>"; };
+		D961975A1BDAAE59006650E4 /* NatGeo04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo04.jpg; sourceTree = "<group>"; };
+		D961975B1BDAAE59006650E4 /* NatGeo05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo05.jpg; sourceTree = "<group>"; };
+		D961975C1BDAAE59006650E4 /* NatGeo06.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo06.jpg; sourceTree = "<group>"; };
+		D961975D1BDAAE59006650E4 /* NatGeo07.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo07.jpg; sourceTree = "<group>"; };
+		D961975E1BDAAE59006650E4 /* NatGeo08.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo08.jpg; sourceTree = "<group>"; };
+		D961975F1BDAAE59006650E4 /* NatGeo09.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo09.jpg; sourceTree = "<group>"; };
+		D96197601BDAAE59006650E4 /* NatGeo10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo10.jpg; sourceTree = "<group>"; };
+		D96197611BDAAE59006650E4 /* NatGeo11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo11.jpg; sourceTree = "<group>"; };
+		D96197621BDAAE59006650E4 /* NatGeo12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo12.jpg; sourceTree = "<group>"; };
+		D96197631BDAAE59006650E4 /* NatGeo13.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo13.jpg; sourceTree = "<group>"; };
+		D96197641BDAAE59006650E4 /* NatGeo14.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo14.jpg; sourceTree = "<group>"; };
+		D96197651BDAAE59006650E4 /* NatGeo15.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo15.jpg; sourceTree = "<group>"; };
+		D96197661BDAAE59006650E4 /* NatGeo16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo16.jpg; sourceTree = "<group>"; };
+		D96197671BDAAE59006650E4 /* NatGeo17.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo17.jpg; sourceTree = "<group>"; };
 		F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				D95AA2521BDA88E90080C25B /* OuroborosExample */,
+				D96197561BDAAE42006650E4 /* Images */,
 				D95AA2511BDA88E90080C25B /* Products */,
 				AC1C1A51C944E3E0D2DB175C /* Pods */,
 				0B4147E9CFA684FD605C2429 /* Frameworks */,
@@ -83,6 +118,30 @@
 				D95AA25C1BDA88EA0080C25B /* Info.plist */,
 			);
 			path = OuroborosExample;
+			sourceTree = "<group>";
+		};
+		D96197561BDAAE42006650E4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D96197571BDAAE59006650E4 /* NatGeo01.jpg */,
+				D96197581BDAAE59006650E4 /* NatGeo02.jpg */,
+				D96197591BDAAE59006650E4 /* NatGeo03.jpg */,
+				D961975A1BDAAE59006650E4 /* NatGeo04.jpg */,
+				D961975B1BDAAE59006650E4 /* NatGeo05.jpg */,
+				D961975C1BDAAE59006650E4 /* NatGeo06.jpg */,
+				D961975D1BDAAE59006650E4 /* NatGeo07.jpg */,
+				D961975E1BDAAE59006650E4 /* NatGeo08.jpg */,
+				D961975F1BDAAE59006650E4 /* NatGeo09.jpg */,
+				D96197601BDAAE59006650E4 /* NatGeo10.jpg */,
+				D96197611BDAAE59006650E4 /* NatGeo11.jpg */,
+				D96197621BDAAE59006650E4 /* NatGeo12.jpg */,
+				D96197631BDAAE59006650E4 /* NatGeo13.jpg */,
+				D96197641BDAAE59006650E4 /* NatGeo14.jpg */,
+				D96197651BDAAE59006650E4 /* NatGeo15.jpg */,
+				D96197661BDAAE59006650E4 /* NatGeo16.jpg */,
+				D96197671BDAAE59006650E4 /* NatGeo17.jpg */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +205,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96197771BDAAE59006650E4 /* NatGeo16.jpg in Resources */,
+				D96197731BDAAE59006650E4 /* NatGeo12.jpg in Resources */,
+				D96197721BDAAE59006650E4 /* NatGeo11.jpg in Resources */,
+				D96197701BDAAE59006650E4 /* NatGeo09.jpg in Resources */,
+				D96197741BDAAE59006650E4 /* NatGeo13.jpg in Resources */,
+				D961976E1BDAAE59006650E4 /* NatGeo07.jpg in Resources */,
+				D96197681BDAAE59006650E4 /* NatGeo01.jpg in Resources */,
+				D961976C1BDAAE59006650E4 /* NatGeo05.jpg in Resources */,
+				D961976F1BDAAE59006650E4 /* NatGeo08.jpg in Resources */,
 				D95AA25B1BDA88EA0080C25B /* Assets.xcassets in Resources */,
+				D96197761BDAAE59006650E4 /* NatGeo15.jpg in Resources */,
+				D96197711BDAAE59006650E4 /* NatGeo10.jpg in Resources */,
 				D95AA2591BDA88E90080C25B /* Main.storyboard in Resources */,
+				D961976B1BDAAE59006650E4 /* NatGeo04.jpg in Resources */,
+				D961976A1BDAAE59006650E4 /* NatGeo03.jpg in Resources */,
+				D96197691BDAAE59006650E4 /* NatGeo02.jpg in Resources */,
+				D96197781BDAAE59006650E4 /* NatGeo17.jpg in Resources */,
+				D96197751BDAAE59006650E4 /* NatGeo14.jpg in Resources */,
+				D961976D1BDAAE59006650E4 /* NatGeo06.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

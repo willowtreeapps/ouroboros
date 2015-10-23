@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var carousel: InfiniteCarousel!
     @IBOutlet weak var carousel2: InfiniteCarousel!
+    @IBOutlet weak var natGeo: InfiniteCarousel!
     
     let colors: [UIColor] = [
         .redColor(),
@@ -30,7 +31,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
         
         carousel2.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer + 3, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
+        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .Left, animated: false)
+        
+        natGeo.rootDataSource = NatGeoDataSource()
+        natGeo.rootDelegate = self
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,20 +46,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.contentView.backgroundColor = colors[indexPath.item]
         return cell
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(1000, collectionView.frame.size.height)
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
 }
 
 class ColoredCell: UICollectionViewCell {
     static let ID = "ColoredCellIdentifier"
+}
+
+class ImageCell: UICollectionViewCell {
+    static let ID = "ImageCell"
+    @IBOutlet var imageView: UIImageView!
+}
+
+class NatGeoDataSource: NSObject, UICollectionViewDataSource {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6 // up to 17
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.ID, forIndexPath: indexPath) as! ImageCell
+        let imageNumber = indexPath.item + 1
+        let suffix = (imageNumber < 10) ? "0\(imageNumber)" : "\(imageNumber)"
+        let image = UIImage(named: "NatGeo\(suffix).jpg")
+        cell.imageView.image = image
+        return cell
+    }
 }
