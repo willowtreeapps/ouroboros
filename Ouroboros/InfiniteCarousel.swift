@@ -99,6 +99,17 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     /// Cell to focus on if we update focus
     var manualFocusCell: NSIndexPath?
     
+    /// Returns the index path of the root data source item given an index path from this collection
+    /// view, which naturally includes the buffer cells.
+    public func adjustedIndexPathForIndexPath(indexPath: NSIndexPath) -> NSIndexPath {
+        let index = indexPath.item
+        let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
+        let adjustedIndex = wrapped % count
+        return NSIndexPath(forItem: adjustedIndex, inSection: 0)
+    }
+    
+    /// For the empty case, returns 0. For a non-empty data source, returns the original number
+    /// of cells plus the buffer cells.
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         count = rootDataSource.collectionView(collectionView, numberOfItemsInSection: section)
         guard count > 0 else {
@@ -111,12 +122,8 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         if !cellMetricsCached() {
             cacheCellMetricsWithIndexPath(indexPath)
         }
-        
-        let index = indexPath.item
-        let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
-        let adjustedIndex = wrapped % count
-        
-        return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: adjustedIndex, inSection: 0))
+        let adjustedPath = adjustedIndexPathForIndexPath(indexPath)
+        return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: adjustedPath)
     }
     
     public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
