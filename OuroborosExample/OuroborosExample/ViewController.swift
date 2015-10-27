@@ -33,8 +33,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         carousel2.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
         carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .Left, animated: false)
         
-        natGeo.rootDataSource = NatGeoDataSource()
-        natGeo.rootDelegate = self
+        natGeo.dataSource = NatGeoDataSource()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

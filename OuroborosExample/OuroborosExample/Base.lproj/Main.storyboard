@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--Root Data Source-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OuroborosExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -34,8 +34,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="rootDataSource" destination="BYZ-38-t0r" id="TTF-br-uX6"/>
-                                    <outlet property="rootDelegate" destination="BYZ-38-t0r" id="Agv-Ub-L4y"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="k96-uw-gPD"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="uWV-hg-3dd"/>
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-ta-p19" customClass="InfiniteCarousel" customModule="Ouroboros">
@@ -56,8 +56,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="rootDataSource" destination="BYZ-38-t0r" id="HM1-uD-0iS"/>
-                                    <outlet property="rootDelegate" destination="BYZ-38-t0r" id="YHh-xb-h7Y"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="3vr-t9-uym"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Jfy-UL-F8I"/>
                                 </connections>
                             </collectionView>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Lm-K5-YMg" customClass="InfiniteCarousel" customModule="Ouroboros">

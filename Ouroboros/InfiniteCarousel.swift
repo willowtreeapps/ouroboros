@@ -10,7 +10,21 @@ import UIKit
 
 public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    /// The number of cells that are generally focused on the screen
+    // MARK: - Initialization
+    
+    /// Override to set delegate in case there is no future specific delegate.
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        self.delegate = self
+    }
+
+    /// Override to set delegate in case there is no future specific delegate.
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.delegate = self
+    }
+    
+    /// The number of cells that are generally focused on the screen.
     ///
     /// Usually the total number of visible is this many + 2, since the edges are showing slices
     /// of the cells before and after.
@@ -22,35 +36,50 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             buffer = onScreenNumber + 1
         }
     }
-
-    /*
-     * To connect protocol-typed outlets in IB, change them to AnyObject! temporarily.
-     */
     
-    /// The real data source for the carousel
-    @IBOutlet public var rootDataSource: UICollectionViewDataSource! {
-        didSet {
+    /// The original data source for the carousel
+    var rootDataSource: UICollectionViewDataSource!
+        
+    /// The original delegate for the carousel
+    var rootDelegate: UICollectionViewDelegateFlowLayout?
+    
+    /// The data source we use to reference ourselves and then the root data source
+    var respondingChainDataSource: InfiniteCarouselDataSource!
+    
+    /// The delegate we use to reference ourselves and then the root delegate
+    var respondingChainDelegate: InfiniteCarouselDelegate!
+   
+    /// Override dataSource to set up our responder chain
+    public override weak var dataSource: UICollectionViewDataSource? {
+        get {
+            return super.dataSource
+        }
+        set {
+            rootDataSource = newValue
             respondingChainDataSource = InfiniteCarouselDataSource(firstResponder: self, second: rootDataSource)
-            self.dataSource = respondingChainDataSource
+            super.dataSource = respondingChainDataSource
         }
     }
 
-    /// The real delegate for the carousel
-    @IBOutlet public var rootDelegate: UICollectionViewDelegateFlowLayout! {
-        didSet {
-            respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate)
-            self.delegate = respondingChainDelegate;
+    /// Override delegate to set up our responder chain
+    public override weak var delegate: UICollectionViewDelegate? {
+        get {
+            return super.delegate
+        }
+        set {
+            if newValue === self {
+                super.delegate = self
+                return
+            }
+            
+            rootDelegate = newValue as? UICollectionViewDelegateFlowLayout
+            respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate!)
+            super.delegate = respondingChainDelegate
         }
     }
 
     /// Number of cells to buffer
     public var buffer: Int = 2
-
-    // The data source we use to reference ourselves and then the root data source
-    var respondingChainDataSource: InfiniteCarouselDataSource!
-    
-    // The delegate we use to reference ourselves and then the root delegate
-    var respondingChainDelegate: InfiniteCarouselDelegate!
     
     /// Cached count of current number of items
     private var count = 0
@@ -72,6 +101,9 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         count = rootDataSource.collectionView(collectionView, numberOfItemsInSection: section)
+        guard count > 0 else {
+            return 0
+        }
         return count + 2 * buffer
     }
     
