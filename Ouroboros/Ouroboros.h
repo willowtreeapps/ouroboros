@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double OuroborosVersionNumber;
 FOUNDATION_EXPORT const unsigned char OuroborosVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Ouroboros/PublicHeader.h>
-
-#import "ResponderChains.h"

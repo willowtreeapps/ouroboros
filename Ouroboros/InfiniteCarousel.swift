@@ -15,13 +15,19 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     /// Override to set delegate in case there is no future specific delegate.
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-        self.delegate = self
+        setup()
     }
 
     /// Override to set delegate in case there is no future specific delegate.
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setup()
+    }
+    
+    public func setup() {
+        object_setClass(self.collectionViewLayout, Layout.self)
         self.delegate = self
+        setNeedsFocusUpdate()
     }
     
     /// The number of cells that are generally focused on the screen.
@@ -31,23 +37,22 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     ///
     /// This is used to decide both how many cells to add around the core as a buffer for infinite
     /// scrolling as well as how many cells ahead or behind we allow the user to focus at once.
-    @IBInspectable public var onScreenNumber: Int = 1 {
+    @IBInspectable public var itemsPerPage: Int = 1 {
         didSet {
-            buffer = onScreenNumber + 1
+            buffer = itemsPerPage + 1
         }
     }
     
     /// The original data source for the carousel
-    var rootDataSource: UICollectionViewDataSource!
+    public var rootDataSource: UICollectionViewDataSource!
         
     /// The original delegate for the carousel
-    var rootDelegate: UICollectionViewDelegateFlowLayout?
+    public var rootDelegate: UICollectionViewDelegateFlowLayout?
     
-    /// The data source we use to reference ourselves and then the root data source
-    var respondingChainDataSource: InfiniteCarouselDataSource!
-    
-    /// The delegate we use to reference ourselves and then the root delegate
-    var respondingChainDelegate: InfiniteCarouselDelegate!
+    /// The index of the item that is currently in focus.
+    ///
+    /// The layout uses this to know which page to center in the view.
+    public var currentlyFocusedItem: Int = 0
    
     /// Override dataSource to set up our responder chain
     public override weak var dataSource: UICollectionViewDataSource? {
@@ -56,8 +61,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         set {
             rootDataSource = newValue
-            respondingChainDataSource = InfiniteCarouselDataSource(firstResponder: self, second: rootDataSource)
-            super.dataSource = respondingChainDataSource
+            super.dataSource = self
         }
     }
 
@@ -67,14 +71,8 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return super.delegate
         }
         set {
-            if newValue === self {
-                super.delegate = self
-                return
-            }
-            
             rootDelegate = newValue as? UICollectionViewDelegateFlowLayout
-            respondingChainDelegate = InfiniteCarouselDelegate(firstResponder: self, second: rootDelegate!)
-            super.delegate = respondingChainDelegate
+            super.delegate = self
         }
     }
 
@@ -83,12 +81,6 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     
     /// Cached count of current number of items
     private var count = 0
-    
-    /// Cached cell width; set when first cell is requested and expected not to change
-    private var cellWidth: CGFloat = 0
-    
-    /// Cached interitem spacing; set when first cell is requested and expected not to change
-    private var interitemSpacing: CGFloat = 0
 
     /// Whether or not we're cued to jump
     var jump = false
@@ -108,6 +100,20 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         return NSIndexPath(forItem: adjustedIndex, inSection: 0)
     }
     
+    public override func reloadData() {
+        super.reloadData()
+        dispatch_async(dispatch_get_main_queue()){
+            if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(self.buffer) {
+                self.setContentOffset(CGPointMake(initialOffset,self.contentOffset.y), animated: false)
+            }
+            
+            // Update initial focus to buffer if we have focus currently
+            self.currentlyFocusedItem = self.buffer
+            self.manualFocusCell = NSIndexPath(forItem: self.currentlyFocusedItem, inSection: 0)
+            self.setNeedsFocusUpdate()
+        }
+    }
+    
     /// For the empty case, returns 0. For a non-empty data source, returns the original number
     /// of cells plus the buffer cells.
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -118,37 +124,18 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         return count + 2 * buffer
     }
     
+    // Pass through to our root data source
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if !cellMetricsCached() {
-            cacheCellMetricsWithIndexPath(indexPath)
-        }
         let adjustedPath = adjustedIndexPathForIndexPath(indexPath)
         return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: adjustedPath)
     }
     
+    // If we are jumping, we set the preferred focus here.
     public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
         return manualFocusCell
     }
     
-    override public func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        guard jump else {
-            return
-        }
-        
-        jump = false
-        
-        let jumpDistance = CGFloat(count) * (cellWidth + interitemSpacing)
-        let currentOffset = self.contentOffset.x
-        
-        if focusHeading == .Left {
-            self.setContentOffset(CGPointMake(currentOffset + jumpDistance, self.contentOffset.y), animated: false)
-        } else {
-            self.setContentOffset(CGPointMake(currentOffset - jumpDistance, self.contentOffset.y), animated: false)
-        }
-
-        setNeedsFocusUpdate()
-    }
-    
+    // If we allow the user to focus on a cell in our buffer region, we set up the jump logic here.
     public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
         guard let to = context.nextFocusedIndexPath else {
             // Not in our carousel; allow user to exit
@@ -159,18 +146,42 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return false
         }
         
+        focusHeading = context.focusHeading
+        currentlyFocusedItem = to.item
+        
         if focusHeading == .Left && to.item < buffer {
             jump = true
-            manualFocusCell = NSIndexPath(forItem: to.item + count, inSection: 0)
+            currentlyFocusedItem += count
         }
         
         if focusHeading == .Right && to.item >= buffer + count {
             jump = true
-            manualFocusCell = NSIndexPath(forItem: to.item - count, inSection: 0)
+            currentlyFocusedItem -= count
         }
         
-        focusHeading = context.focusHeading
+        manualFocusCell = NSIndexPath(forItem: currentlyFocusedItem, inSection: 0)
         return true
+    }
+    
+    // If we are currently jumping, we execute it here.
+    override public func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        guard jump else {
+            return
+        }
+        
+        jump = false
+        
+        let jumpDistance = CGFloat(count) * (collectionViewLayout as! Layout).totalItemWidth
+        let currentOffset = self.contentOffset.x
+        
+        if focusHeading == .Left {
+            self.setContentOffset(CGPointMake(currentOffset + jumpDistance, self.contentOffset.y), animated: false)
+        } else {
+            self.setContentOffset(CGPointMake(currentOffset - jumpDistance, self.contentOffset.y), animated: false)
+        }
+        
+        currentlyFocusedItem = manualFocusCell!.item
+        setNeedsFocusUpdate()
     }
     
     /// Returns whether or not the focus is "too far away". 
@@ -178,79 +189,60 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     /// In this implementation, we're defining the maximum focus distance as roughtly a single 
     /// screen's worth of content.
     func nextFocusIsTooFarAway(context: UICollectionViewFocusUpdateContext) -> Bool {
-        var testOffset = self.bounds.width / (CGFloat(onScreenNumber) + 1.0)
+        var testOffset = self.bounds.width / (CGFloat(itemsPerPage) + 1.0)
         if context.focusHeading == .Right {
-            testOffset *= CGFloat(onScreenNumber)
+            testOffset *= CGFloat(itemsPerPage)
         }
         var testPoint = CGPointMake(self.contentOffset.x + testOffset, self.bounds.height/2)
         
         var testPath: NSIndexPath? = nil
-        let step: CGFloat = (context.focusHeading == .Left) ? -10 : 10 // TODO: Is this best?
+        let step: CGFloat = (context.focusHeading == .Left) ? -10 : 10 // Is this best?
         while testPath == nil {
             testPath = self.indexPathForItemAtPoint(testPoint)
             testPoint = CGPointMake(testPoint.x + step, testPoint.y)
         }
         
         let to = context.nextFocusedIndexPath!
-        return abs(to.item - testPath!.item) > onScreenNumber
+        return abs(to.item - testPath!.item) > itemsPerPage
     }
     
-    func cellMetricsCached() -> Bool {
-        return cellWidth != 0
-    }
+    // MARK: - Layout
     
-    func cacheCellMetricsWithIndexPath(indexPath: NSIndexPath) {
-        if let size = rootDelegate?.collectionView?(self, layout: collectionViewLayout, sizeForItemAtIndexPath: indexPath) {
-            cellWidth = size.width
-        } else {
-            cellWidth = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width
+    class Layout: UICollectionViewFlowLayout {
+        var totalItemWidth: CGFloat {
+            return itemSize.width + minimumLineSpacing
         }
-        if cellWidth == 0 {
-            preconditionFailure("InfiniteCarousel only be used with a cell width > 0")
-        }
-        if let lineSpacing = rootDelegate?.collectionView?(self, layout: collectionViewLayout, minimumLineSpacingForSectionAtIndex: indexPath.section) {
-            interitemSpacing = lineSpacing
-        } else {
-            interitemSpacing = (collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing
-        }
-    }
-}
-
-class CenteringFlowLayout: UICollectionViewFlowLayout {
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        if let cv = self.collectionView {
-            let cvBounds = cv.bounds
-            let halfWidth = cvBounds.size.width * 0.5;
-            let proposedContentOffsetCenterX = proposedContentOffset.x + halfWidth;
-            
-            if let attributesForVisibleCells = layoutAttributesForElementsInRect(cvBounds) {
-                var candidateAttributes : UICollectionViewLayoutAttributes?
-                for attributes in attributesForVisibleCells {
-                    if attributes.representedElementCategory != UICollectionElementCategory.Cell {
-                        continue
-                    }
-                    
-                    if let candAttrs = candidateAttributes {
-                        let a = attributes.center.x - proposedContentOffsetCenterX
-                        let b = candAttrs.center.x - proposedContentOffsetCenterX
-                        
-                        if fabsf(Float(a)) < fabsf(Float(b)) {
-                            candidateAttributes = attributes;
-                        }
-                    }
-                    else {
-                        candidateAttributes = attributes;
-                        continue;
-                    }
-                }
-                return CGPoint(x: candidateAttributes!.center.x - halfWidth, y: proposedContentOffset.y)
+        
+        func offsetForItemAtIndex(index: Int) -> CGFloat? {
+            guard let carousel = collectionView as? InfiniteCarousel else {
+                preconditionFailure("This layout should only be used by InfiniteCarousel instances")
             }
+            
+            let pageSize = carousel.itemsPerPage
+            let pageIndex = (index / pageSize)
+            let firstItemOnPageIndex = pageIndex * pageSize
+            let firstItemOnPage = NSIndexPath(forItem: firstItemOnPageIndex, inSection: 0)
+            
+            guard let cellAttributes = self.layoutAttributesForItemAtIndexPath(firstItemOnPage) else {
+                return nil
+            }
+            
+            let offset = ((carousel.bounds.size.width - (CGFloat(pageSize) * totalItemWidth) - minimumLineSpacing) / 2.0) + minimumLineSpacing
+            return cellAttributes.frame.origin.x - offset
         }
-        return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
-    }
-
-    
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        return true
+        
+        override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+            let originalOffset = super.targetContentOffsetForProposedContentOffset(proposedContentOffset, withScrollingVelocity: velocity)
+            guard let collectionView = self.collectionView else {
+                return originalOffset
+            }
+            guard let carousel = collectionView as? InfiniteCarousel else {
+                preconditionFailure("This layout should only be used by InfiniteCarousel instances")
+            }
+            guard let offset = offsetForItemAtIndex(carousel.currentlyFocusedItem) else {
+                return originalOffset
+            }
+            return CGPoint(x: offset, y: proposedContentOffset.y)
+        }
     }
 }

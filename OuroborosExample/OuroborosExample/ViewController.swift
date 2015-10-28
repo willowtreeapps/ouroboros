@@ -28,10 +28,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         
         carousel.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-        carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
+//        carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
         
         carousel2.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .Left, animated: false)
+//        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .Left, animated: false)
         
         natGeo.dataSource = NatGeoDataSource()
     }

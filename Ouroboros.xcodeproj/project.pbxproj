@@ -11,8 +11,6 @@
 		D95AA2801BDA89DE0080C25B /* Ouroboros.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95AA2751BDA89DE0080C25B /* Ouroboros.framework */; };
 		D95AA2851BDA89DE0080C25B /* OuroborosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2841BDA89DE0080C25B /* OuroborosTests.swift */; };
 		D95AA2931BDA89F30080C25B /* InfiniteCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA28F1BDA89F30080C25B /* InfiniteCarousel.swift */; };
-		D95AA2951BDA89F30080C25B /* ResponderChains.h in Headers */ = {isa = PBXBuildFile; fileRef = D95AA2911BDA89F30080C25B /* ResponderChains.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D95AA2961BDA89F30080C25B /* ResponderChains.m in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2921BDA89F30080C25B /* ResponderChains.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,8 +31,6 @@
 		D95AA2841BDA89DE0080C25B /* OuroborosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTests.swift; sourceTree = "<group>"; };
 		D95AA2861BDA89DE0080C25B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D95AA28F1BDA89F30080C25B /* InfiniteCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCarousel.swift; sourceTree = "<group>"; };
-		D95AA2911BDA89F30080C25B /* ResponderChains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponderChains.h; sourceTree = "<group>"; };
-		D95AA2921BDA89F30080C25B /* ResponderChains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponderChains.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				D95AA28F1BDA89F30080C25B /* InfiniteCarousel.swift */,
-				D95AA2911BDA89F30080C25B /* ResponderChains.h */,
-				D95AA2921BDA89F30080C25B /* ResponderChains.m */,
 				D95AA2781BDA89DE0080C25B /* Ouroboros.h */,
 				D95AA27A1BDA89DE0080C25B /* Info.plist */,
 			);
@@ -103,7 +97,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D95AA2791BDA89DE0080C25B /* Ouroboros.h in Headers */,
-				D95AA2951BDA89F30080C25B /* ResponderChains.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +197,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D95AA2961BDA89F30080C25B /* ResponderChains.m in Sources */,
 				D95AA2931BDA89F30080C25B /* InfiniteCarousel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
