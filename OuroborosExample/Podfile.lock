@@ -1,14 +1,14 @@
 PODS:
-  - Ouroboros (0.0.1)
+  - WillowTreeOuroboros (0.0.1)
 
 DEPENDENCIES:
-  - Ouroboros (from `..`)
+  - WillowTreeOuroboros (from `..`)
 
 EXTERNAL SOURCES:
-  Ouroboros:
+  WillowTreeOuroboros:
     :path: ".."
 
 SPEC CHECKSUMS:
-  Ouroboros: 603e7dfc965c337b715d3262da348a665e256c98
+  WillowTreeOuroboros: 19de2eeedeb267b528f305d810e276a884f09581
 
 COCOAPODS: 0.39.0
