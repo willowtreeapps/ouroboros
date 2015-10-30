@@ -27,12 +27,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        carousel.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-//        carousel.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
-        
-        carousel2.registerClass(ColoredCell.self, forCellWithReuseIdentifier: ColoredCell.ID)
-//        carousel2.scrollToItemAtIndexPath(NSIndexPath(forItem: carousel.buffer, inSection: 0), atScrollPosition: .Left, animated: false)
-        
+        carousel.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        carousel2.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         natGeo.dataSource = NatGeoDataSource()
     }
     
@@ -41,26 +37,37 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColoredCell.ID, forIndexPath: indexPath)
-        cell.contentView.backgroundColor = colors[indexPath.item]
-        let imageNumber = indexPath.item + 1
-        let suffix = (imageNumber < 10) ? "0\(imageNumber)" : "\(imageNumber)"
-        let image = UIImage(named: "NatGeo\(suffix).jpg")
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.adjustsImageWhenAncestorFocused = true
-        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        cell.contentView.addSubview(imageView)
-        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .Width, relatedBy: .Equal, toItem: cell, attribute: .Width, multiplier: 0.9, constant: 0))
-        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .Height, relatedBy: .Equal, toItem: cell, attribute: .Height, multiplier: 0.9, constant: 0))
-        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterX, relatedBy: .Equal, toItem: cell, attribute: .CenterX, multiplier: 1.0, constant: 0))
-        cell.addConstraint(NSLayoutConstraint(item: imageView, attribute: .CenterY, relatedBy: .Equal, toItem: cell, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SampleCell.ID, forIndexPath: indexPath) as! SampleCell
+        cell.color = colors[indexPath.item]
+        cell.label.text = "\(indexPath.item)"
         return cell
     }
 }
 
-class ColoredCell: UICollectionViewCell {
-    static let ID = "ColoredCellIdentifier"
+class SampleCell: UICollectionViewCell {
+    static let ID = "SampleCell"
+    
+    @IBOutlet var label: UILabel!
+    
+    var color: UIColor = .whiteColor() {
+        didSet {
+            updateBackgroundColor()
+        }
+    }
+    
+    func updateBackgroundColor() {
+        if focused {
+            contentView.backgroundColor = color
+        } else {
+            contentView.backgroundColor = color.colorWithAlphaComponent(0.25)
+        }
+    }
+    
+    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        coordinator.addCoordinatedAnimations({ () -> Void in
+            self.updateBackgroundColor()
+        }, completion: nil)
+    }
 }
 
 class ImageCell: UICollectionViewCell {

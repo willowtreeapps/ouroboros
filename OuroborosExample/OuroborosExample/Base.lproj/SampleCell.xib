@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SampleCell" id="aFZ-Ac-wf1" customClass="SampleCell" customModule="OuroborosExample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="191"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="356" height="191"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgN-Mt-Ymd">
+                        <rect key="frame" x="88" y="50" width="180" height="91"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="MgN-Mt-Ymd" firstAttribute="centerX" secondItem="aFZ-Ac-wf1" secondAttribute="centerX" id="6m9-2n-H4m"/>
+                <constraint firstItem="MgN-Mt-Ymd" firstAttribute="centerY" secondItem="aFZ-Ac-wf1" secondAttribute="centerY" id="qru-pb-3W2"/>
+            </constraints>
+            <size key="customSize" width="356" height="191"/>
+            <connections>
+                <outlet property="label" destination="MgN-Mt-Ymd" id="79j-YI-RLJ"/>
+            </connections>
+            <point key="canvasLocation" x="429" y="385.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
