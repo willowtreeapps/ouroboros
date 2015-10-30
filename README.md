@@ -35,5 +35,5 @@ From code, use it as you would normally use a `UICollectionView`.
 
 ### WillowTree is Hiring!
 
-Want to write Go for mobile applications? Want to write anything else for mobile
-applications? [Check out our openings!](http://willowtreeapps.com/careers/)
+Want to write amazing tvOS apps? Want to write amazing iOS apps?
+[Check out our openings!](http://willowtreeapps.com/careers/)
