@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WillowTreeOuroboros"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Infinitely scrolling carousel for tvOS"
   s.description  = <<-DESC
                    Ouroboros implements an infinitely scrolling carousel for
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.authors      = { "Ian Terrell" => "ian.terrell@gmail.com" }
   s.source       = { :git => "https://github.com/willowtreeapps/ouroboros.git",
-                     :tag => "0.0.1" }
+                     :tag => "0.0.2" }
 
   s.platform = :tvos
 
