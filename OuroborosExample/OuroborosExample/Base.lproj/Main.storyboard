@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-Ne-gnG" customClass="InfiniteCarousel" customModule="Ouroboros">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-Ne-gnG" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="260"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="260" id="auj-LI-b1O"/>
@@ -33,7 +33,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="uWV-hg-3dd"/>
                                 </connections>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-ta-p19" customClass="InfiniteCarousel" customModule="Ouroboros">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-ta-p19" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
                                 <rect key="frame" x="0.0" y="270" width="1920" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="pki-f3-ci9"/>
@@ -55,7 +55,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Jfy-UL-F8I"/>
                                 </connections>
                             </collectionView>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Lm-K5-YMg" customClass="InfiniteCarousel" customModule="Ouroboros">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Lm-K5-YMg" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
                                 <rect key="frame" x="0.0" y="500" width="1920" height="540"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="540" id="dqU-4b-70b"/>

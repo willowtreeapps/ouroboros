@@ -7,13 +7,15 @@
 //
 
 import UIKit
-import Ouroboros
+import WillowTreeOuroboros
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var carousel: InfiniteCarousel!
     @IBOutlet weak var carousel2: InfiniteCarousel!
     @IBOutlet weak var natGeo: InfiniteCarousel!
+    
+    let natGeoDataSource = NatGeoDataSource()
     
     let colors: [UIColor] = [
         .redColor(),
@@ -29,7 +31,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         carousel.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         carousel2.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
-        natGeo.dataSource = NatGeoDataSource()
+        
+        natGeo.dataSource = natGeoDataSource
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
