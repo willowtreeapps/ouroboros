@@ -46,6 +46,15 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
     }
     
+    /// Whether or not to auto-scroll this carousel when the user is not interacting with it.
+    @IBInspectable public var autoScroll: Bool = false
+    
+    /// The time in between auto-scroll events.
+    @IBInspectable public var autoScrollTime: Double = 4.0
+    
+    /// The time it takes after a user event to start the auto scroll timer again.
+    @IBInspectable public var autoScrollReset: Double = 16.0
+    
     /// The original data source for the carousel
     public internal(set) weak var rootDataSource: UICollectionViewDataSource!
         
@@ -115,15 +124,8 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             guard self.count > 0 else {
                 return
             }
-            
-            if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(self.buffer) {
-                self.setContentOffset(CGPointMake(initialOffset,self.contentOffset.y), animated: false)
-            }
-            
-            // Update initial focus to buffer if we have focus currently
-            self.currentlyFocusedItem = self.buffer
-            self.manualFocusCell = NSIndexPath(forItem: self.currentlyFocusedItem, inSection: 0)
-            self.setNeedsFocusUpdate()
+            self.scrollToItem(self.buffer, animated: false)
+            self.beginAutoScroll()
         }
     }
     
@@ -147,18 +149,25 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
     
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        pauseAutoScroll()
+        
         initiallyFocusedItem = currentlyFocusedItem
         super.touchesBegan(touches, withEvent: event)
     }
     
     public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
-        // Only manage transitions within this carousel
-        guard context.previouslyFocusedIndexPath != nil,
-              let to = context.nextFocusedIndexPath
-        else {
+        // Allow users to leave
+        guard let to = context.nextFocusedIndexPath else {
             return true
         }
-
+        
+        pauseAutoScroll()
+        
+        // Allow users to enter
+        guard context.previouslyFocusedIndexPath != nil else {
+            return true
+        }
+        
         // Restrict movement to a page at a time if we're swiping, but don't break
         // keyboard access in simulator.
         if initiallyFocusedItem != nil && abs(to.item - initiallyFocusedItem!) > itemsPerPage {
@@ -189,17 +198,82 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         
         jumping = false
         
-        let jumpDistance = CGFloat(count) * (collectionViewLayout as! Layout).totalItemWidth
-        let currentOffset = self.contentOffset.x
-        
         if focusHeading == .Left {
-            self.setContentOffset(CGPointMake(currentOffset + jumpDistance, self.contentOffset.y), animated: false)
+            jump(.Forward)
         } else {
-            self.setContentOffset(CGPointMake(currentOffset - jumpDistance, self.contentOffset.y), animated: false)
+            jump(.Backward)
         }
         
         currentlyFocusedItem = manualFocusCell!.item
         setNeedsFocusUpdate()
+    }
+    
+    func scrollToItem(item: Int, animated: Bool) {
+        if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(item) {
+            self.setContentOffset(CGPointMake(initialOffset,self.contentOffset.y), animated: animated)
+        }
+        
+        // Update focus element in case we have it
+        self.currentlyFocusedItem = item
+        self.manualFocusCell = NSIndexPath(forItem: self.currentlyFocusedItem, inSection: 0)
+        self.setNeedsFocusUpdate()
+    }
+    
+    // MARK: - Auto Scroll
+    
+    var scrollTimer: NSTimer?
+    var userInputTimer: NSTimer?
+    
+    func beginAutoScroll() {
+        guard autoScroll else {
+            return
+        }
+        
+        invalidateTimers()
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollTime, target: self,
+            selector: "scrollToNextPage", userInfo: nil, repeats: true)
+    }
+    
+    func pauseAutoScroll() {
+        guard autoScroll else {
+            return
+        }
+        
+        invalidateTimers()
+        userInputTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollReset, target: self,
+            selector: "beginAutoScroll", userInfo: nil, repeats: false)
+    }
+    
+    func scrollToNextPage() {
+        var nextItem = self.currentlyFocusedItem + itemsPerPage
+        if nextItem >= buffer + count {
+            nextItem -= count
+            jump(.Backward)
+        }
+
+        scrollToItem(nextItem, animated: true)
+    }
+    
+    func invalidateTimers() {
+        scrollTimer?.invalidate()
+        userInputTimer?.invalidate()
+    }
+    
+    // MARK: - Jump Helpers
+    
+    enum JumpDirection {
+        case Forward
+        case Backward
+    }
+    
+    func jump(direction: JumpDirection) {
+        let currentOffset = self.contentOffset.x
+        var jumpOffset = CGFloat(count) * (collectionViewLayout as! Layout).totalItemWidth
+        if case .Backward = direction {
+            jumpOffset *= -1
+        }
+        self.setContentOffset(CGPointMake(currentOffset + jumpOffset, self.contentOffset.y),
+            animated: false)
     }
     
     // MARK: - Layout
