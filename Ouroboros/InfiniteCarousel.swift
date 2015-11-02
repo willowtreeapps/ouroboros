@@ -147,11 +147,6 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         super.touchesBegan(touches, withEvent: event)
     }
     
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        initiallyFocusedItem = nil
-        super.touchesEnded(touches, withEvent: event)
-    }
-    
     public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
         // Only manage transitions within this carousel
         guard context.previouslyFocusedIndexPath != nil,
