@@ -50,10 +50,10 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     @IBInspectable public var autoScroll: Bool = false
     
     /// The time in between auto-scroll events.
-    @IBInspectable public var autoScrollTime: Double = 4.0
+    @IBInspectable public var autoScrollTime: Double = 9.0
     
-    /// The time it takes after a user event to start the auto scroll timer again.
-    @IBInspectable public var autoScrollReset: Double = 16.0
+    /// The timer used to control auto-scroll behavior
+    var scrollTimer: NSTimer?
     
     /// The original data source for the carousel
     public internal(set) weak var rootDataSource: UICollectionViewDataSource!
@@ -149,8 +149,6 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
     
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        pauseAutoScroll()
-        
         initiallyFocusedItem = currentlyFocusedItem
         super.touchesBegan(touches, withEvent: event)
     }
@@ -158,13 +156,13 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
         // Allow users to leave
         guard let to = context.nextFocusedIndexPath else {
+            beginAutoScroll()
             return true
         }
         
-        pauseAutoScroll()
-        
         // Allow users to enter
         guard context.previouslyFocusedIndexPath != nil else {
+            stopAutoScroll()
             return true
         }
         
@@ -221,27 +219,18 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     
     // MARK: - Auto Scroll
     
-    var scrollTimer: NSTimer?
-    var userInputTimer: NSTimer?
-    
     func beginAutoScroll() {
         guard autoScroll else {
             return
         }
         
-        invalidateTimers()
+        scrollTimer?.invalidate()
         scrollTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollTime, target: self,
             selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
-    func pauseAutoScroll() {
-        guard autoScroll else {
-            return
-        }
-        
-        invalidateTimers()
-        userInputTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollReset, target: self,
-            selector: "beginAutoScroll", userInfo: nil, repeats: false)
+    func stopAutoScroll() {
+        scrollTimer?.invalidate()
     }
     
     func scrollToNextPage() {
@@ -252,11 +241,6 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
 
         scrollToItem(nextItem, animated: true)
-    }
-    
-    func invalidateTimers() {
-        scrollTimer?.invalidate()
-        userInputTimer?.invalidate()
     }
     
     // MARK: - Jump Helpers

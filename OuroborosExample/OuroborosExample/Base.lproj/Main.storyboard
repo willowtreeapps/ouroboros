@@ -30,12 +30,6 @@
                                 <cells/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autoScroll" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="autoScrollTime">
-                                        <real key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="autoScrollReset">
-                                        <real key="value" value="16"/>
-                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="k96-uw-gPD"/>
@@ -59,10 +53,7 @@
                                         <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="autoScrollTime">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="autoScrollReset">
-                                        <real key="value" value="20"/>
+                                        <real key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autoScroll" value="YES"/>
                                 </userDefinedRuntimeAttributes>
