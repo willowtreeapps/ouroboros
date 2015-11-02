@@ -112,6 +112,10 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         super.reloadData()
         
         dispatch_async(dispatch_get_main_queue()) {
+            guard self.count > 0 else {
+                return
+            }
+            
             if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(self.buffer) {
                 self.setContentOffset(CGPointMake(initialOffset,self.contentOffset.y), animated: false)
             }
