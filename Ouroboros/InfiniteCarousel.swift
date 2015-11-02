@@ -47,10 +47,10 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
     
     /// The original data source for the carousel
-    public internal(set) var rootDataSource: UICollectionViewDataSource!
+    public internal(set) weak var rootDataSource: UICollectionViewDataSource!
         
     /// The original delegate for the carousel
-    public internal(set) var rootDelegate: UICollectionViewDelegateFlowLayout?
+    public internal(set) weak var rootDelegate: UICollectionViewDelegateFlowLayout?
     
     /// The index of the item that is currently in focus.
     ///
