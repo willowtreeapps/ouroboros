@@ -138,6 +138,11 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         return count + 2 * buffer
     }
+
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let adjustedPath = adjustedIndexPathForIndexPath(indexPath)
+        rootDelegate?.collectionView!(collectionView, didSelectItemAtIndexPath: adjustedPath)
+    }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let adjustedPath = adjustedIndexPathForIndexPath(indexPath)
