@@ -2,6 +2,9 @@
 
 ### *An infinitely scrolling carousel for tvOS*
 
+<img src="https://media.giphy.com/media/3o7WTESBVRUj38ZcZi/giphy.gif">
+
+
 ## Installation
 
 You can use this project via CocoaPods with:
