@@ -227,7 +227,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         
         scrollTimer?.invalidate()
         scrollTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollTime, target: self,
-            selector: "scrollToNextPage", userInfo: nil, repeats: true)
+            selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
     }
     
     func stopAutoScroll() {
