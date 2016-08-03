@@ -111,6 +111,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     /// Returns the index path of the root data source item given an index path from this collection
     /// view, which naturally includes the buffer cells.
     public func adjustedIndexPathForIndexPath(indexPath: NSIndexPath) -> NSIndexPath {
+        precondition(count >= buffer, "Ouroboros requires at least twice the number of items per page to work properly. For best results: a number that is evenly divisible by the number of items per page.")
         let index = indexPath.item
         let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
         let adjustedIndex = wrapped % count
@@ -226,7 +227,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         
         scrollTimer?.invalidate()
         scrollTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollTime, target: self,
-            selector: "scrollToNextPage", userInfo: nil, repeats: true)
+            selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
     }
     
     func stopAutoScroll() {

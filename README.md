@@ -1,15 +1,25 @@
 # Ouroboros, by WillowTree
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 ### *An infinitely scrolling carousel for tvOS*
+
+<img src="https://media.giphy.com/media/3o7WTESBVRUj38ZcZi/giphy.gif">
+
 
 ## Installation
 
-You can use this project via CocoaPods with:
+You can use this project via CocoaPods:
 ```ruby
 pod 'WillowTreeOuroboros'
 ```
 
-Without CocoaPods you can simply copy the `InfiniteCarousel.swift` file into
+Or via Carthage:
+```ruby
+github "willowtreeapps/ouroboros" >= 0.1
+```
+
+Or you can simply copy the `InfiniteCarousel.swift` file into
 your project.
 
 ## Usage
