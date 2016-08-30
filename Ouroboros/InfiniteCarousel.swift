@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource {
     
     // MARK: - Initialization
     
@@ -59,7 +59,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     public internal(set) weak var rootDataSource: UICollectionViewDataSource!
         
     /// The original delegate for the carousel
-    public internal(set) weak var rootDelegate: UICollectionViewDelegateFlowLayout?
+    public internal(set) weak var rootDelegate: UICollectionViewDelegate?
     
     /// The index of the item that is currently in focus.
     ///
@@ -88,7 +88,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return super.delegate
         }
         set {
-            rootDelegate = newValue as? UICollectionViewDelegateFlowLayout
+            rootDelegate = newValue
             super.delegate = self
         }
     }
@@ -145,49 +145,9 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: adjustedPath)
     }
     
-    public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
-        return manualFocusCell
-    }
-    
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         initiallyFocusedItem = currentlyFocusedItem
         super.touchesBegan(touches, withEvent: event)
-    }
-    
-    public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
-        // Allow users to leave
-        guard let to = context.nextFocusedIndexPath else {
-            beginAutoScroll()
-            return true
-        }
-        
-        // Allow users to enter
-        guard context.previouslyFocusedIndexPath != nil else {
-            stopAutoScroll()
-            return true
-        }
-        
-        // Restrict movement to a page at a time if we're swiping, but don't break
-        // keyboard access in simulator.
-        if initiallyFocusedItem != nil && abs(to.item - initiallyFocusedItem!) > itemsPerPage {
-            return false
-        }
-        
-        focusHeading = context.focusHeading
-        currentlyFocusedItem = to.item
-        
-        if focusHeading == .Left && to.item < buffer {
-            jumping = true
-            currentlyFocusedItem += count
-        }
-        
-        if focusHeading == .Right && to.item >= buffer + count {
-            jumping = true
-            currentlyFocusedItem -= count
-        }
-        
-        manualFocusCell = NSIndexPath(forItem: currentlyFocusedItem, inSection: 0)
-        return true
     }
     
     public override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
@@ -295,5 +255,135 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             }
             return CGPoint(x: offset, y: proposedContentOffset.y)
         }
+    }
+}
+
+extension InfiniteCarousel: UICollectionViewDelegate {
+    // Managing the Selected Cells
+    
+    public func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldSelectItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath)) ?? true
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didSelectItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    public func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldDeselectItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath)) ?? true
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didDeselectItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    // Managing Cell Highlighting
+    
+    public func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldHighlightItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath)) ?? true
+    }
+
+    public func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didHighlightItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didUnhighlightItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    // Tracking the Addition and Removal of Views
+    
+    public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, willDisplayCell: cell, forItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    public func collectionView(collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, atIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, willDisplaySupplementaryView: view, forElementKind: elementKind, atIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didEndDisplayingCell: cell, forItemAtIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, atIndexPath indexPath: NSIndexPath) {
+        rootDelegate?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, atIndexPath: adjustedIndexPathForIndexPath(indexPath))
+    }
+    
+    // Handling Layout Changes
+    
+    public func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout {
+        return rootDelegate?.collectionView?(collectionView, transitionLayoutForOldLayout: fromLayout, newLayout: toLayout) ?? UICollectionViewTransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
+    }
+    
+    public func collectionView(collectionView: UICollectionView, targetIndexPathForMoveFromItemAtIndexPath originalIndexPath: NSIndexPath, toProposedIndexPath proposedIndexPath: NSIndexPath) -> NSIndexPath {
+        return rootDelegate?.collectionView?(collectionView, targetIndexPathForMoveFromItemAtIndexPath: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
+    }
+    
+    public func collectionView(collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        return rootDelegate?.collectionView?(collectionView, targetContentOffsetForProposedContentOffset: proposedContentOffset) ?? proposedContentOffset
+    }
+    
+    // Managing Actions for Cells
+    
+    public func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldShowMenuForItemAtIndexPath: indexPath) ?? false
+    }
+    
+    public func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender) ?? false
+    }
+    
+    public func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+        rootDelegate?.collectionView?(collectionView, performAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+    }
+    
+    // Managing Focus in a Collection View
+    
+    public func collectionView(collectionView: UICollectionView, canFocusItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, canFocusItemAtIndexPath: indexPath) ?? collectionView.allowsSelection
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+        rootDelegate?.collectionView?(collectionView, didUpdateFocusInContext: context, withAnimationCoordinator: coordinator)
+    }
+    
+    public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
+        return manualFocusCell
+    }
+    
+    public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
+        // Allow users to leave
+        guard let to = context.nextFocusedIndexPath else {
+            beginAutoScroll()
+            return true
+        }
+        
+        // Allow users to enter
+        guard context.previouslyFocusedIndexPath != nil else {
+            stopAutoScroll()
+            return true
+        }
+        
+        // Restrict movement to a page at a time if we're swiping, but don't break
+        // keyboard access in simulator.
+        if initiallyFocusedItem != nil && abs(to.item - initiallyFocusedItem!) > itemsPerPage {
+            return false
+        }
+        
+        focusHeading = context.focusHeading
+        currentlyFocusedItem = to.item
+        
+        if focusHeading == .Left && to.item < buffer {
+            jumping = true
+            currentlyFocusedItem += count
+        }
+        
+        if focusHeading == .Right && to.item >= buffer + count {
+            jumping = true
+            currentlyFocusedItem -= count
+        }
+        
+        manualFocusCell = NSIndexPath(forItem: currentlyFocusedItem, inSection: 0)
+        return rootDelegate?.collectionView?(collectionView, shouldUpdateFocusInContext: context) ?? true
     }
 }
