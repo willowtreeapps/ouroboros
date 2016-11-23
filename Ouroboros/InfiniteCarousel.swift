@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Initialization
     
@@ -40,39 +40,39 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     ///
     /// This is used to decide both how many cells to add around the core as a buffer for infinite
     /// scrolling as well as how many cells ahead or behind we allow the user to focus at once.
-    @IBInspectable public var itemsPerPage: Int = 1 {
+    @IBInspectable open var itemsPerPage: Int = 1 {
         didSet {
             buffer = itemsPerPage * 2
         }
     }
     
     /// Whether or not to auto-scroll this carousel when the user is not interacting with it.
-    @IBInspectable public var autoScroll: Bool = false
+    @IBInspectable open var autoScroll: Bool = false
     
     /// The time in between auto-scroll events.
-    @IBInspectable public var autoScrollTime: Double = 9.0
+    @IBInspectable open var autoScrollTime: Double = 9.0
     
     /// The timer used to control auto-scroll behavior
-    var scrollTimer: NSTimer?
+    var scrollTimer: Timer?
     
     /// The original data source for the carousel
-    public internal(set) weak var rootDataSource: UICollectionViewDataSource!
+    open internal(set) weak var rootDataSource: UICollectionViewDataSource!
         
     /// The original delegate for the carousel
-    public internal(set) weak var rootDelegate: UICollectionViewDelegateFlowLayout?
+    open internal(set) weak var rootDelegate: UICollectionViewDelegateFlowLayout?
     
     /// The index of the item that is currently in focus.
     ///
     /// The layout uses this to know which page to center in the view.
-    public internal(set) var currentlyFocusedItem: Int = 0
+    open internal(set) var currentlyFocusedItem: Int = 0
    
     /// The index of the item that was in focus when the user began a touch event.
     ///
     /// This is used to determine how far we can advance focus in a single gesture.
-    public internal(set) var initiallyFocusedItem: Int?
+    open internal(set) var initiallyFocusedItem: Int?
     
     /// Override dataSource to set up our responder chain
-    public override weak var dataSource: UICollectionViewDataSource? {
+    open override weak var dataSource: UICollectionViewDataSource? {
         get {
             return super.dataSource
         }
@@ -83,7 +83,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
 
     /// Override delegate to set up our responder chain
-    public override weak var delegate: UICollectionViewDelegate? {
+    open override weak var delegate: UICollectionViewDelegate? {
         get {
             return super.delegate
         }
@@ -94,7 +94,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     }
 
     /// Number of cells to buffer
-    public internal(set) var buffer: Int = 2
+    open internal(set) var buffer: Int = 2
     
     /// Cached count of current number of items
     var count = 0
@@ -106,22 +106,22 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     var focusHeading: UIFocusHeading?
     
     /// Cell to focus on if we update focus
-    var manualFocusCell: NSIndexPath?
+    var manualFocusCell: IndexPath?
     
     /// Returns the index path of the root data source item given an index path from this collection
     /// view, which naturally includes the buffer cells.
-    public func adjustedIndexPathForIndexPath(indexPath: NSIndexPath) -> NSIndexPath {
+    open func adjustedIndexPathForIndexPath(_ indexPath: IndexPath) -> IndexPath {
         precondition(count >= buffer, "Ouroboros requires at least twice the number of items per page to work properly. For best results: a number that is evenly divisible by the number of items per page.")
         let index = indexPath.item
         let wrapped = (index - buffer < 0) ? (count + (index - buffer)) : (index - buffer)
         let adjustedIndex = wrapped % count
-        return NSIndexPath(forItem: adjustedIndex, inSection: 0)
+        return IndexPath(item: adjustedIndex, section: 0)
     }
     
-    public override func reloadData() {
+    open override func reloadData() {
         super.reloadData()
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             guard self.count > 0 else {
                 return
             }
@@ -132,7 +132,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     
     // For the empty case, returns 0. For a non-empty data source, returns the original number
     // of cells plus the buffer cells.
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         count = rootDataSource.collectionView(collectionView, numberOfItemsInSection: section)
         guard count > 0 else {
             return 0
@@ -140,21 +140,21 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         return count + 2 * buffer
     }
     
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let adjustedPath = adjustedIndexPathForIndexPath(indexPath)
-        return rootDataSource.collectionView(collectionView, cellForItemAtIndexPath: adjustedPath)
+        return rootDataSource.collectionView(collectionView, cellForItemAt: adjustedPath)
     }
     
-    public func indexPathForPreferredFocusedViewInCollectionView(collectionView: UICollectionView) -> NSIndexPath? {
+    open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
         return manualFocusCell
     }
     
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         initiallyFocusedItem = currentlyFocusedItem
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
     }
     
-    public func collectionView(collectionView: UICollectionView, shouldUpdateFocusInContext context: UICollectionViewFocusUpdateContext) -> Bool {
+    open func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
         // Allow users to leave
         guard let to = context.nextFocusedIndexPath else {
             beginAutoScroll()
@@ -176,45 +176,45 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         focusHeading = context.focusHeading
         currentlyFocusedItem = to.item
         
-        if focusHeading == .Left && to.item < buffer {
+        if focusHeading == .left && to.item < buffer {
             jumping = true
             currentlyFocusedItem += count
         }
         
-        if focusHeading == .Right && to.item >= buffer + count {
+        if focusHeading == .right && to.item >= buffer + count {
             jumping = true
             currentlyFocusedItem -= count
         }
         
-        manualFocusCell = NSIndexPath(forItem: currentlyFocusedItem, inSection: 0)
+        manualFocusCell = IndexPath(item: currentlyFocusedItem, section: 0)
         return true
     }
     
-    public override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+    open override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         guard jumping else {
             return
         }
         
         jumping = false
         
-        if focusHeading == .Left {
-            jump(.Forward)
+        if focusHeading == .left {
+            jump(.forward)
         } else {
-            jump(.Backward)
+            jump(.backward)
         }
         
         currentlyFocusedItem = manualFocusCell!.item
         setNeedsFocusUpdate()
     }
     
-    func scrollToItem(item: Int, animated: Bool) {
+    func scrollToItem(_ item: Int, animated: Bool) {
         if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(item) {
-            self.setContentOffset(CGPointMake(initialOffset,self.contentOffset.y), animated: animated)
+            self.setContentOffset(CGPoint(x: initialOffset,y: self.contentOffset.y), animated: animated)
         }
         
         // Update focus element in case we have it
         self.currentlyFocusedItem = item
-        self.manualFocusCell = NSIndexPath(forItem: self.currentlyFocusedItem, inSection: 0)
+        self.manualFocusCell = IndexPath(item: self.currentlyFocusedItem, section: 0)
         self.setNeedsFocusUpdate()
     }
     
@@ -226,7 +226,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         
         scrollTimer?.invalidate()
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(autoScrollTime, target: self,
+        scrollTimer = Timer.scheduledTimer(timeInterval: autoScrollTime, target: self,
             selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
     }
     
@@ -238,7 +238,7 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
         var nextItem = self.currentlyFocusedItem + itemsPerPage
         if nextItem >= buffer + count {
             nextItem -= count
-            jump(.Backward)
+            jump(.backward)
         }
 
         scrollToItem(nextItem, animated: true)
@@ -247,17 +247,17 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
     // MARK: - Jump Helpers
     
     enum JumpDirection {
-        case Forward
-        case Backward
+        case forward
+        case backward
     }
     
-    func jump(direction: JumpDirection) {
+    func jump(_ direction: JumpDirection) {
         let currentOffset = self.contentOffset.x
         var jumpOffset = CGFloat(count) * (collectionViewLayout as! Layout).totalItemWidth
-        if case .Backward = direction {
+        if case .backward = direction {
             jumpOffset *= -1
         }
-        self.setContentOffset(CGPointMake(currentOffset + jumpOffset, self.contentOffset.y),
+        self.setContentOffset(CGPoint(x: currentOffset + jumpOffset, y: self.contentOffset.y),
             animated: false)
     }
     
@@ -275,13 +275,13 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return carousel
         }
         
-        func offsetForItemAtIndex(index: Int) -> CGFloat? {
+        func offsetForItemAtIndex(_ index: Int) -> CGFloat? {
             let pageSize = carousel.itemsPerPage
             let pageIndex = (index / pageSize)
             let firstItemOnPageIndex = pageIndex * pageSize
-            let firstItemOnPage = NSIndexPath(forItem: firstItemOnPageIndex, inSection: 0)
+            let firstItemOnPage = IndexPath(item: firstItemOnPageIndex, section: 0)
             
-            guard let cellAttributes = self.layoutAttributesForItemAtIndexPath(firstItemOnPage) else {
+            guard let cellAttributes = self.layoutAttributesForItem(at: firstItemOnPage) else {
                 return nil
             }
             
@@ -289,9 +289,9 @@ public class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UIC
             return cellAttributes.frame.origin.x - offset
         }
         
-        override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+        override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
             guard let offset = offsetForItemAtIndex(carousel.currentlyFocusedItem) else {
-                return super.targetContentOffsetForProposedContentOffset(proposedContentOffset, withScrollingVelocity: velocity)
+                return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
             }
             return CGPoint(x: offset, y: proposedContentOffset.y)
         }
