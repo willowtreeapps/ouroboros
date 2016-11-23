@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		95C1C0719D6F16428B673622 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFFC46490C38B34852267AD /* Pods.framework */; };
+		7745EDAADA935BF050C1EC66 /* Pods_OuroborosExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF79C6CAF8037C21D39202BB /* Pods_OuroborosExample.framework */; };
 		D95765261BE3B75D0063A6A1 /* SampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95765241BE3B75D0063A6A1 /* SampleCell.xib */; };
 		D95AA2541BDA88E90080C25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2531BDA88E90080C25B /* AppDelegate.swift */; };
 		D95AA2561BDA88E90080C25B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95AA2551BDA88E90080C25B /* ViewController.swift */; };
@@ -33,8 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4CFFC46490C38B34852267AD /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D52CBA97606CEBC54A92D6 /* Pods-OuroborosExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OuroborosExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OuroborosExample/Pods-OuroborosExample.debug.xcconfig"; sourceTree = "<group>"; };
+		D16966C2E5E01EE7B87B0435 /* Pods-OuroborosExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OuroborosExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-OuroborosExample/Pods-OuroborosExample.release.xcconfig"; sourceTree = "<group>"; };
 		D95765251BE3B75D0063A6A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SampleCell.xib; sourceTree = "<group>"; };
 		D95AA2501BDA88E90080C25B /* OuroborosExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OuroborosExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95AA2531BDA88E90080C25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,7 +60,7 @@
 		D96197651BDAAE59006650E4 /* NatGeo15.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo15.jpg; sourceTree = "<group>"; };
 		D96197661BDAAE59006650E4 /* NatGeo16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo16.jpg; sourceTree = "<group>"; };
 		D96197671BDAAE59006650E4 /* NatGeo17.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NatGeo17.jpg; sourceTree = "<group>"; };
-		F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		FF79C6CAF8037C21D39202BB /* Pods_OuroborosExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OuroborosExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C1C0719D6F16428B673622 /* Pods.framework in Frameworks */,
+				7745EDAADA935BF050C1EC66 /* Pods_OuroborosExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,15 +79,16 @@
 			isa = PBXGroup;
 			children = (
 				4CFFC46490C38B34852267AD /* Pods.framework */,
+				FF79C6CAF8037C21D39202BB /* Pods_OuroborosExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AC1C1A51C944E3E0D2DB175C /* Pods */ = {
+		5F54977DBFB537285F235900 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */,
-				F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */,
+				C7D52CBA97606CEBC54A92D6 /* Pods-OuroborosExample.debug.xcconfig */,
+				D16966C2E5E01EE7B87B0435 /* Pods-OuroborosExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -97,8 +99,8 @@
 				D95AA2521BDA88E90080C25B /* OuroborosExample */,
 				D96197561BDAAE42006650E4 /* Images */,
 				D95AA2511BDA88E90080C25B /* Products */,
-				AC1C1A51C944E3E0D2DB175C /* Pods */,
 				0B4147E9CFA684FD605C2429 /* Frameworks */,
+				5F54977DBFB537285F235900 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,12 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D95AA25F1BDA88EA0080C25B /* Build configuration list for PBXNativeTarget "OuroborosExample" */;
 			buildPhases = (
-				2A5FDAB20A4CE55AABE8D794 /* Check Pods Manifest.lock */,
+				47AC615A533F16B1D2C1C0F4 /* [CP] Check Pods Manifest.lock */,
 				D95AA24C1BDA88E90080C25B /* Sources */,
 				D95AA24D1BDA88E90080C25B /* Frameworks */,
 				D95AA24E1BDA88E90080C25B /* Resources */,
-				1F2BAA8832477F56BFC6A16F /* Embed Pods Frameworks */,
-				50578C8FA985FADA6A5E9F70 /* Copy Pods Resources */,
+				69F85058AF18DBDAC9B4FB8B /* [CP] Embed Pods Frameworks */,
+				2686C25170DBC40E55A70BA3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,6 +184,7 @@
 				TargetAttributes = {
 					D95AA24F1BDA88E90080C25B = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -234,49 +237,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F2BAA8832477F56BFC6A16F /* Embed Pods Frameworks */ = {
+		2686C25170DBC40E55A70BA3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OuroborosExample/Pods-OuroborosExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2A5FDAB20A4CE55AABE8D794 /* Check Pods Manifest.lock */ = {
+		47AC615A533F16B1D2C1C0F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		50578C8FA985FADA6A5E9F70 /* Copy Pods Resources */ = {
+		69F85058AF18DBDAC9B4FB8B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OuroborosExample/Pods-OuroborosExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -396,7 +399,7 @@
 		};
 		D95AA2601BDA88EA0080C25B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 232C84BB7485DBBBF789C8C5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C7D52CBA97606CEBC54A92D6 /* Pods-OuroborosExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -404,12 +407,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		D95AA2611BDA88EA0080C25B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F64F8F6D06C0103338FB0C2C /* Pods.release.xcconfig */;
+			baseConfigurationReference = D16966C2E5E01EE7B87B0435 /* Pods-OuroborosExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -417,6 +421,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.willowtreeapps.OuroborosExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
