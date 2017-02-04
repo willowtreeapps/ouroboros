@@ -4,8 +4,7 @@
 
 ### *An infinitely scrolling carousel for tvOS*
 
-<img src="https://media.giphy.com/media/3o7WTESBVRUj38ZcZi/giphy.gif">
-
+<img src="https://github.com/willowtreeapps/ouroboros/blob/develop/ouroboros.gif?raw=true">
 
 ## Installation
 
@@ -16,7 +15,7 @@ pod 'WillowTreeOuroboros'
 
 Or via Carthage:
 ```ruby
-github "willowtreeapps/ouroboros" >= 0.1
+github "willowtreeapps/ouroboros" >= 0.2
 ```
 
 Or you can simply copy the `InfiniteCarousel.swift` file into
@@ -54,3 +53,8 @@ related timers (in seconds).
 
 Want to write amazing tvOS apps? Want to write amazing iOS apps?
 [Check out our openings!](http://willowtreeapps.com/careers/)
+
+### Version History
+
+0.2.0
+Update to Swift 3.0 syntax.

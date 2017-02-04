@@ -18,29 +18,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let natGeoDataSource = NatGeoDataSource()
     
     let colors: [UIColor] = [
-        .redColor(),
-        .orangeColor(),
-        .yellowColor(),
-        .greenColor(),
-        .blueColor(),
-        .purpleColor(),
+        .red,
+        .orange,
+        .yellow,
+        .green,
+        .blue,
+        .purple,
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        carousel.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
-        carousel2.registerNib(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        carousel.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        carousel2.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         
         natGeo.dataSource = natGeoDataSource
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SampleCell.ID, forIndexPath: indexPath) as! SampleCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SampleCell.ID, for: indexPath) as! SampleCell
         cell.color = colors[indexPath.item]
         cell.label.text = "\(indexPath.item)"
         return cell
@@ -52,21 +52,21 @@ class SampleCell: UICollectionViewCell {
     
     @IBOutlet var label: UILabel!
     
-    var color: UIColor = .whiteColor() {
+    var color: UIColor = .white {
         didSet {
             updateBackgroundColor()
         }
     }
     
     func updateBackgroundColor() {
-        if focused {
+        if isFocused {
             contentView.backgroundColor = color
         } else {
-            contentView.backgroundColor = color.colorWithAlphaComponent(0.25)
+            contentView.backgroundColor = color.withAlphaComponent(0.25)
         }
     }
     
-    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({ () -> Void in
             self.updateBackgroundColor()
         }, completion: nil)
@@ -79,12 +79,12 @@ class ImageCell: UICollectionViewCell {
 }
 
 class NatGeoDataSource: NSObject, UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10 // up to 17
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.ID, forIndexPath: indexPath) as! ImageCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.ID, for: indexPath) as! ImageCell
         let imageNumber = indexPath.item + 1
         let suffix = (imageNumber < 10) ? "0\(imageNumber)" : "\(imageNumber)"
         let image = UIImage(named: "NatGeo\(suffix).jpg")
