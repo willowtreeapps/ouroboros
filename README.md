@@ -15,7 +15,7 @@ pod 'WillowTreeOuroboros'
 
 Or via Carthage:
 ```ruby
-github "willowtreeapps/ouroboros" >= 0.2
+github "willowtreeapps/ouroboros" >= 0.2.1
 ```
 
 Or you can simply copy the `InfiniteCarousel.swift` file into
@@ -56,5 +56,5 @@ Want to write amazing tvOS apps? Want to write amazing iOS apps?
 
 ### Version History
 
-0.2.0
+0.2.1
 Update to Swift 3.0 syntax.
