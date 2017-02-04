@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.authors      = { "Ian Terrell" => "ian.terrell@gmail.com" }
   s.source       = { :git => "https://github.com/willowtreeapps/ouroboros.git",
-                     :tag => "0.1.0" }
+                     :tag => "0.2.0" }
 
   s.platform = :tvos
 

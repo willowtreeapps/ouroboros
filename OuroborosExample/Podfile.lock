@@ -1,5 +1,5 @@
 PODS:
-  - WillowTreeOuroboros (0.1.0)
+  - WillowTreeOuroboros (0.2.0)
 
 DEPENDENCIES:
   - WillowTreeOuroboros (from `..`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  WillowTreeOuroboros: 12f1b059137294713a6454ff6e6a3ad5b8fc9e65
+  WillowTreeOuroboros: d89095dfedf8da86188d602a205af640e52a066a
 
 PODFILE CHECKSUM: a42dc192f7a63ea6062b354e19a1f341d58f29e5
 
