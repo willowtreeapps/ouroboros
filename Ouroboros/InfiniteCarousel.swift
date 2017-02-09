@@ -206,6 +206,15 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         currentlyFocusedItem = manualFocusCell!.item
         setNeedsFocusUpdate()
     }
+
+    public override func reloadItemsAtIndexPaths(indexPaths: [NSIndexPath]) {
+        guard count > 0 else {
+            super.reloadItemsAtIndexPaths(indexPaths)
+            return
+        }
+        let adjustedIntexPaths = carouselIndexPathsForOriginalIndexPaths(indexPaths)
+        super.reloadItemsAtIndexPaths(adjustedIntexPaths)
+    }
     
     func scrollToItem(_ item: Int, animated: Bool) {
         if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(item) {
@@ -260,7 +269,18 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         self.setContentOffset(CGPoint(x: currentOffset + jumpOffset, y: self.contentOffset.y),
             animated: false)
     }
-    
+
+    func carouselIndexPathsForOriginalIndexPaths(indexPaths: [NSIndexPath]) -> [NSIndexPath] {
+        return indexPaths.reduce([NSIndexPath]()) { (prev, index) -> [NSIndexPath] in
+            let adjustedIndex = NSIndexPath(forRow: index.row + buffer, inSection: index.section)
+            if index.row >= buffer && index.row < count - buffer {
+                return prev + [adjustedIndex]
+            }
+            let boundingIndexPath = NSIndexPath(forRow: (index.row + buffer + count) % (count * 2), inSection: index.section)
+            return prev + [adjustedIndex, boundingIndexPath]
+        }
+    }
+
     // MARK: - Layout
     
     class Layout: UICollectionViewFlowLayout {
