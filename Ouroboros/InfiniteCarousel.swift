@@ -189,7 +189,18 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         manualFocusCell = IndexPath(item: currentlyFocusedItem, section: 0)
         return true
     }
-    
+
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didSelectItemAt: adjustedIndexPathForIndexPath(indexPath))
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let size = rootDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt:adjustedIndexPathForIndexPath(indexPath)) else {
+            return (collectionViewLayout as! Layout).itemSize
+        }
+        return size
+    }
+
     open override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         guard jumping else {
             return
@@ -253,7 +264,13 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
     
     func jump(_ direction: JumpDirection) {
         let currentOffset = self.contentOffset.x
-        var jumpOffset = CGFloat(count) * (collectionViewLayout as! Layout).totalItemWidth
+        var jumpOffset: CGFloat = 0
+
+        for index in 0..<count {
+            let indexpath = IndexPath(item: index, section: 0)
+            jumpOffset += collectionView(self, layout: collectionViewLayout, sizeForItemAt: indexpath).width + (collectionViewLayout as! Layout).minimumLineSpacing
+        }
+
         if case .backward = direction {
             jumpOffset *= -1
         }
@@ -264,9 +281,6 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
     // MARK: - Layout
     
     class Layout: UICollectionViewFlowLayout {
-        var totalItemWidth: CGFloat {
-            return itemSize.width + minimumLineSpacing
-        }
         
         var carousel: InfiniteCarousel {
             guard let carousel = collectionView as? InfiniteCarousel else {
@@ -284,8 +298,8 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
             guard let cellAttributes = self.layoutAttributesForItem(at: firstItemOnPage) else {
                 return nil
             }
-            
-            let offset = ((carousel.bounds.size.width - (CGFloat(pageSize) * totalItemWidth) - minimumLineSpacing) / 2.0) + minimumLineSpacing
+            let pageWidth = CGFloat(pageSize) * (itemSize.width + minimumLineSpacing)
+            let offset = ((carousel.bounds.size.width - pageWidth - minimumLineSpacing) / 2.0) + minimumLineSpacing
             return cellAttributes.frame.origin.x - offset
         }
         
