@@ -88,6 +88,12 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
             return super.delegate
         }
         set {
+            if newValue == nil {
+                rootDelegate = nil
+                super.delegate = nil
+                return
+            }
+
             rootDelegate = newValue as? UICollectionViewDelegateFlowLayout
             super.delegate = self
         }
