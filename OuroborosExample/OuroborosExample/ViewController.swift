@@ -47,7 +47,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        print("did update focus \(context.nextFocusedIndexPath)")
+        if let targetCarousel = collectionView as? InfiniteCarousel, let indexPath = context.nextFocusedIndexPath {
+            print("IndexPath: \(targetCarousel.adjustedIndexPathForIndexPath(indexPath))")
+        }
     }
 }
 
