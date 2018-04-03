@@ -14,7 +14,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var carousel: InfiniteCarousel!
     @IBOutlet weak var carousel2: InfiniteCarousel!
     @IBOutlet weak var natGeo: InfiniteCarousel!
-    
+
     let natGeoDataSource = NatGeoDataSource()
     
     let colors: [UIColor] = [
@@ -31,7 +31,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         carousel.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         carousel2.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
-        
+
         natGeo.dataSource = natGeoDataSource
     }
     
@@ -44,6 +44,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.color = colors[indexPath.item]
         cell.label.text = "\(indexPath.item)"
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        print("did update focus \(context.nextFocusedIndexPath)")
     }
 }
 
