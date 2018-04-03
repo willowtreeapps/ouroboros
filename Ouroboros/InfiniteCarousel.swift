@@ -243,7 +243,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
     }
 
     open func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
-        var result = rootDelegate?.collectionView?(collectionView, shouldUpdateFocusIn: context) ?? true
+        let result = rootDelegate?.collectionView?(collectionView, shouldUpdateFocusIn: context) ?? true
 
         // Allow users to leave
         guard let to = context.nextFocusedIndexPath else {
