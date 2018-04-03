@@ -73,7 +73,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
     open internal(set) weak var rootDataSource: UICollectionViewDataSource!
 
     /// The original delegate for the carousel
-    open internal(set) weak var rootDelegate: UICollectionViewDelegateFlowLayout?
+    open internal(set) weak var rootDelegate: UICollectionViewDelegate?
 
     /// The index of the item that is currently in focus.
     ///
@@ -102,7 +102,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
             return super.delegate
         }
         set {
-            rootDelegate = newValue as? UICollectionViewDelegateFlowLayout
+            rootDelegate = newValue
             super.delegate = self
         }
     }
