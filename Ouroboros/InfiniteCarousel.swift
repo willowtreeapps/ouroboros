@@ -43,7 +43,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
             fatalError("InfiniteCarousel can only be used with UICollectionViewFlowLayout instances")
         }
         object_setClass(collectionViewLayout, Layout.self)
-        delegate = self
+        super.delegate = self
         setNeedsFocusUpdate()
     }
 
@@ -177,26 +177,84 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         }
     }
 
-    open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
-        return manualFocusCell
-    }
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         initiallyFocusedItem = currentlyFocusedItem
         super.touchesBegan(touches, with: event)
     }
 
+    open func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldHighlightItemAt: indexPath) ?? true
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didHighlightItemAt: indexPath)
+    }
+    open func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didUnhighlightItemAt: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldSelectItemAt:indexPath) ?? true
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldDeselectItemAt: indexPath) ?? true
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didDeselectItemAt: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, willDisplaySupplementaryView: view, forElementKind: elementKind, at: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        rootDelegate?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, shouldShowMenuForItemAt: indexPath) ?? true
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender) ?? false
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+         rootDelegate?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender:sender)
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        return rootDelegate?.collectionView?(collectionView, canFocusItemAt: indexPath) ?? true
+    }
+
     open func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
+        var result = rootDelegate?.collectionView?(collectionView, shouldUpdateFocusIn: context) ?? true
+
         // Allow users to leave
         guard let to = context.nextFocusedIndexPath else {
             beginAutoScroll()
-            return true
+            return result
         }
 
         // Allow users to enter
         guard context.previouslyFocusedIndexPath != nil else {
             stopAutoScroll()
-            return true
+            return result
         }
 
         // Restrict movement to a page at a time if we're swiping, but don't break
@@ -222,7 +280,15 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         } else {
             manualFocusCell = IndexPath(item: to.item, section: 0)
         }
-        return true
+        return result
+    }
+
+    open func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        rootDelegate?.collectionView?(collectionView, didUpdateFocusIn: context, with: coordinator)
+    }
+
+    open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        return rootDelegate?.indexPathForPreferredFocusedView?(in: collectionView) ?? manualFocusCell
     }
 
     open override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
