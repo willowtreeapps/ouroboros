@@ -308,7 +308,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         setNeedsFocusUpdate()
     }
 
-    func scrollToItem(_ item: Int, animated: Bool) {
+    open func scrollToItem(_ item: Int, animated: Bool) {
         if let initialOffset = (self.collectionViewLayout as! Layout).offsetForItemAtIndex(item) {
             self.setContentOffset(CGPoint(x: initialOffset,y: self.contentOffset.y), animated: animated)
         }
