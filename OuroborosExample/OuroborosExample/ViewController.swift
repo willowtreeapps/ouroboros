@@ -64,6 +64,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        collectionView.centeredScrollPosition = false
         
         return collectionView
     }()
