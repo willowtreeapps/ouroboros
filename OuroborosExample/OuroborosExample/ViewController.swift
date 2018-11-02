@@ -10,6 +10,10 @@ import UIKit
 import WillowTreeOuroboros
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    @IBOutlet weak var carousel2: InfiniteCarousel!
+    @IBOutlet weak var natGeo: InfiniteCarousel!
+    
     let natGeoDataSource = NatGeoDataSource()
     
     let colors: [UIColor] = [
@@ -23,7 +27,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(collectionView)
+        
+        carousel2.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        
+        natGeo.dataSource = natGeoDataSource
+        
+        view.addSubview(carousel)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -37,7 +46,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return cell
     }
     
-    lazy var collectionView: InfiniteCarousel = {
+    lazy var carousel: InfiniteCarousel = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.itemSize = CGSize(width: 300, height: 150)
@@ -50,7 +59,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
         collectionView.clipsToBounds = false
-//        collectionView.remembersLastFocusedIndexPath = true
         if  #available(tvOS 11, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
         }
