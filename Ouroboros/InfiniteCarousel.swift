@@ -137,7 +137,9 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
         guard count > 0 else {
             return 0
         }
-        return count + 2 * buffer
+        
+        let itemsPerPage: Int = Int(self.bounds.size.width/((self.collectionViewLayout as! Layout).totalItemWidth))
+        return count + buffer + itemsPerPage
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -285,7 +287,7 @@ open class InfiniteCarousel: UICollectionView, UICollectionViewDataSource, UICol
                 return nil
             }
             
-            let offset = ((carousel.bounds.size.width - (CGFloat(pageSize) * totalItemWidth) - minimumLineSpacing) / 2.0) + minimumLineSpacing
+            let offset: CGFloat = 90.0
             return cellAttributes.frame.origin.x - offset
         }
         
