@@ -11,7 +11,6 @@ import WillowTreeOuroboros
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var carousel: InfiniteCarousel!
     @IBOutlet weak var carousel2: InfiniteCarousel!
     @IBOutlet weak var natGeo: InfiniteCarousel!
     
@@ -29,22 +28,46 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        carousel.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         carousel2.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
         
         natGeo.dataSource = natGeoDataSource
+        
+        view.addSubview(carousel)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count
+        return colors.count * 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SampleCell.ID, for: indexPath) as! SampleCell
-        cell.color = colors[indexPath.item]
+        cell.color = colors[indexPath.item % 6]
         cell.label.text = "\(indexPath.item)"
         return cell
     }
+    
+    lazy var carousel: InfiniteCarousel = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = CGSize(width: 300, height: 150)
+        flowLayout.minimumLineSpacing = 20
+        
+        let collectionView = InfiniteCarousel(frame: CGRect(x: 0, y: 100, width: 1920, height: 150), collectionViewLayout: flowLayout)
+        
+        collectionView.accessibilityIdentifier = "carousel"
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .clear
+        collectionView.clipsToBounds = false
+        if  #available(tvOS 11, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(UINib(nibName: "SampleCell", bundle: nil), forCellWithReuseIdentifier: SampleCell.ID)
+        collectionView.centeredScrollPosition = false
+        
+        return collectionView
+    }()
 }
 
 class SampleCell: UICollectionViewCell {

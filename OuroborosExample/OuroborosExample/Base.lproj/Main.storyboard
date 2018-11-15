@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,28 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-Ne-gnG" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
-                                <rect key="frame" x="0.0" y="0.0" width="1920" height="260"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="auj-LI-b1O"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KIH-Hg-4CY">
-                                    <size key="itemSize" width="1000" height="260"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autoScroll" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="k96-uw-gPD"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="uWV-hg-3dd"/>
-                                </connections>
-                            </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-ta-p19" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
-                                <rect key="frame" x="0.0" y="270" width="1920" height="200"/>
+                                <rect key="frame" x="0.0" y="330" width="1920" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="pki-f3-ci9"/>
                                 </constraints>
@@ -63,7 +48,7 @@
                                 </connections>
                             </collectionView>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Lm-K5-YMg" customClass="InfiniteCarousel" customModule="WillowTreeOuroboros">
-                                <rect key="frame" x="0.0" y="500" width="1920" height="540"/>
+                                <rect key="frame" x="0.0" y="560" width="1920" height="540"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="540" id="dqU-4b-70b"/>
                                 </constraints>
@@ -85,9 +70,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="864" height="540"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.42187408609999999" green="1" blue="0.89891723749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.42187408609999999" green="1" blue="0.89891723749999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="TyL-HX-Cpv" secondAttribute="trailing" id="5t6-aR-dvD"/>
                                             <constraint firstItem="TyL-HX-Cpv" firstAttribute="top" secondItem="mvq-lc-kzX" secondAttribute="top" id="JKz-39-XFq"/>
@@ -99,23 +83,22 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="centeredScrollPosition" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5Lm-K5-YMg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8AF-uj-b7b"/>
                             <constraint firstAttribute="trailing" secondItem="5Lm-K5-YMg" secondAttribute="trailing" id="W6u-YV-wiK"/>
-                            <constraint firstItem="ibD-Ne-gnG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="X6e-Rm-jlA"/>
-                            <constraint firstItem="ibD-Ne-gnG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="arM-3H-7v1"/>
                             <constraint firstItem="5Lm-K5-YMg" firstAttribute="top" secondItem="lQK-ta-p19" secondAttribute="bottom" constant="30" id="ehV-qK-4Qe"/>
-                            <constraint firstItem="lQK-ta-p19" firstAttribute="top" secondItem="ibD-Ne-gnG" secondAttribute="bottom" constant="10" id="nKt-Re-CJ5"/>
-                            <constraint firstAttribute="trailing" secondItem="ibD-Ne-gnG" secondAttribute="trailing" id="pFm-hf-POK"/>
                             <constraint firstItem="lQK-ta-p19" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pmg-jH-ezP"/>
                             <constraint firstAttribute="trailing" secondItem="lQK-ta-p19" secondAttribute="trailing" id="qOz-bK-cgU"/>
+                            <constraint firstItem="lQK-ta-p19" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="270" id="yqT-4c-SMe"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="carousel" destination="ibD-Ne-gnG" id="Z8p-Mn-WSk"/>
                         <outlet property="carousel2" destination="lQK-ta-p19" id="dY5-5S-fEe"/>
                         <outlet property="natGeo" destination="5Lm-K5-YMg" id="dq4-Ic-NpW"/>
                     </connections>
